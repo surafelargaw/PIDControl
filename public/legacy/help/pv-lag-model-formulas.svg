@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1370 930" role="img" aria-labelledby="title desc">
+  <title id="title">PV Lag Model Formulas</title>
+  <desc id="desc">The discrete equations used to turn process drive into simulated PV.</desc>
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+    <style>
+      .canvas { fill: #f8fafc; }
+      .page-title { font: 700 38px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 19px Arial, sans-serif; fill: #475569; }
+      .box { stroke-width: 2; }
+      .blue { fill: #eff6ff; stroke: #60a5fa; }
+      .green { fill: #ecfdf5; stroke: #34d399; }
+      .amber { fill: #fffbeb; stroke: #f59e0b; }
+      .violet { fill: #f5f3ff; stroke: #a78bfa; }
+      .cyan { fill: #ecfeff; stroke: #22d3ee; }
+      .rose { fill: #fff1f2; stroke: #fb7185; }
+      .slate { fill: #f1f5f9; stroke: #94a3b8; }
+      .box-title { font: 700 21px Arial, sans-serif; fill: #0f172a; }
+      .box-text { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .text { font: 400 17px Arial, sans-serif; fill: #334155; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+      .formula { font: 600 18px Consolas, "Courier New", monospace; fill: #0f172a; }
+      .formula-note { font: 400 16px Arial, sans-serif; fill: #475569; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowhead); }
+      .arrow-label { font: 700 14px Arial, sans-serif; fill: #334155; paint-order: stroke; stroke: #f8fafc; stroke-width: 5; stroke-linejoin: round; }
+      .divider { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 8 8; }
+    </style>
+  </defs>
+  <rect class="canvas" width="1370" height="930" />
+  <text x="685" y="58" text-anchor="middle" class="page-title">PV Lag Model Formulas</text>
+  <text x="685" y="91" text-anchor="middle" class="subtitle">The discrete equations used to turn process drive into simulated PV.</text>
+  
+  <text x="70" y="136" class="subtitle">The same drive signal can feed either a one-lag or two-lag plant. The selected state becomes PV.</text>
+
+  
+  <g>
+    
+  <g>
+    <rect class="box cyan" x="70" y="180" width="560" height="290" rx="14" />
+    <text x="350" y="214" text-anchor="middle" class="box-title">First-Order Self-Regulating Model</text>
+    
+  </g>
+    <text x="98" y="262" class="formula">x1[k+1] = x1[k] + (dt / lag1) * (drive[k] - x1[k])</text>
+<text x="98" y="293" class="formula">PV[k+1] = clamp(initialPV + span * x1[k+1])</text>
+    <line x1="98" y1="360" x2="602" y2="360" class="divider" />
+    <text x="98" y="395" class="formula-note">One storage stage. PV moves smoothly toward the drive.</text>
+<text x="98" y="420" class="formula-note">Smaller lag1 means faster response.</text>
+  </g>
+
+  
+  <g>
+    
+  <g>
+    <rect class="box green" x="710" y="180" width="590" height="290" rx="14" />
+    <text x="1005" y="214" text-anchor="middle" class="box-title">Second-Order Self-Regulating Model</text>
+    
+  </g>
+    <text x="738" y="262" class="formula">x1[k+1] = x1[k] + (dt / lag1) * (drive[k] - x1[k])</text>
+<text x="738" y="293" class="formula">x2[k+1] = x2[k] + (dt / lag2) * (x1[k+1] - x2[k])</text>
+<text x="738" y="324" class="formula">PV[k+1] = clamp(initialPV + span * x2[k+1])</text>
+    <line x1="738" y1="360" x2="1272" y2="360" class="divider" />
+    <text x="738" y="395" class="formula-note">Two storage stages. PV is slower and more damped.</text>
+<text x="738" y="420" class="formula-note">Useful for thermal loops and processes with stored energy.</text>
+  </g>
+
+  
+  <g>
+    
+  <g>
+    <rect class="box amber" x="70" y="535" width="560" height="290" rx="14" />
+    <text x="350" y="569" text-anchor="middle" class="box-title">Integrating Model</text>
+    
+  </g>
+    <text x="98" y="617" class="formula">x1[k+1] = x1[k] + (dt / lag1) *</text>
+<text x="98" y="648" class="formula">          (drive[k] - leakage * x1[k])</text>
+<text x="98" y="679" class="formula">PV[k+1] = clamp(initialPV + span * x1[k+1])</text>
+    <line x1="98" y1="715" x2="602" y2="715" class="divider" />
+    <text x="98" y="750" class="formula-note">Used for level-like behavior.</text>
+<text x="98" y="775" class="formula-note">Sustained drive keeps moving PV until leakage or control balances it.</text>
+  </g>
+
+  <g>
+    <rect class="box violet" x="710" y="535" width="590" height="290" rx="14" />
+    <text x="1005" y="569" text-anchor="middle" class="box-title">Shared Drive Terms</text>
+    <text x="738" y="620" class="formula">normalizedDrive = (characteristicPosition - baseOutput) / 100</text>
+<text x="738" y="651" class="formula">delayedDrive = deadtimeQueue.shift()</text>
+<text x="738" y="682" class="formula">drive = directionSign * gain * delayedDrive + disturbance + interaction</text>
+    <line x1="738" y1="724" x2="1272" y2="724" class="divider" />
+    <text x="738" y="759" class="formula-note">dt is 0.1 seconds in the simulator.</text>
+<text x="738" y="784" class="formula-note">span is displayMax - displayMin.</text>
+<text x="738" y="809" class="formula-note">directionSign handles direct-acting versus reverse-acting processes.</text>
+  </g>
+
+  <text x="70" y="880" class="small">Generated by scripts/generate-pv-block-diagrams.ts. These equations mirror src/lib/sim/engine.ts updateProcessState().</text>
+</svg>

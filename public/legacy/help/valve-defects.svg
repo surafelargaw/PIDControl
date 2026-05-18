@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Valve defect concepts</title>
+  <desc id="desc">Illustration of command versus feedback with deadband and stiction.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 3; }
+      .cmd { fill: none; stroke: #da5d3f; stroke-width: 6; }
+      .fb { fill: none; stroke: #1489a7; stroke-width: 6; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="720"/>
+  <rect x="80" y="130" width="1040" height="480" class="panel"/>
+  <line x1="150" y1="540" x2="1040" y2="540" class="axis"/>
+  <line x1="150" y1="540" x2="150" y2="200" class="axis"/>
+  <path class="cmd" d="M180 500 L280 440 L380 380 L480 320 L580 280 L680 240 L780 220 L880 210 L980 200"/>
+  <path class="fb" d="M180 500 L260 500 L320 470 L420 470 L500 400 L600 400 L680 320 L780 320 L860 250 L980 250"/>
+  <text x="860" y="310" class="label" fill="#1489a7">Valve feedback with deadband and stick-slip motion</text>
+  <text x="768" y="176" class="label" fill="#da5d3f">Controller output command</text>
+  <text x="600" y="74" text-anchor="middle" class="txt" style="font-size:34px">Why actuator defects make tuning look worse</text>
+  <text x="600" y="620" text-anchor="middle" class="sub">If CO changes but feedback lags, jumps, or overshoots, the final control element can be the real problem.</text>
+</svg>

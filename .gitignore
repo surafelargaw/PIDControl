@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Next.js build outputs
+.next/
+.next-dev/
+out/
+
+# TypeScript incremental state
+*.tsbuildinfo
+
+# Runtime and smoke-test logs
+*.log
+*.err.log
+*.out.log
+
+# Local browser/test profiles
+.edge-smoke-profile/
+chrome-debug-profile/
+.vscode/
+
+# Claude Code local config (machine-specific paths and permissions)
+.claude/
+
+# Environment files
+.env
+.env.*
+!.env.example

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Trend cursor analysis</title>
+  <desc id="desc">Trend with two cursors A and B and measured deltas.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 3; }
+      .pv { fill: none; stroke: #2c56d0; stroke-width: 6; }
+      .sp { fill: none; stroke: #2a8a44; stroke-width: 5; }
+      .cursorA { stroke: #da5d3f; stroke-width: 4; stroke-dasharray: 10 8; }
+      .cursorB { stroke: #1e6f5c; stroke-width: 4; stroke-dasharray: 10 8; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <rect x="80" y="120" width="1040" height="470" class="panel"/>
+  <line x1="150" y1="520" x2="1040" y2="520" class="axis"/>
+  <line x1="150" y1="520" x2="150" y2="190" class="axis"/>
+  <path class="sp" d="M170 430 L300 430 L300 320 L1020 320"/>
+  <path class="pv" d="M170 440 C250 440 280 430 320 410 C380 380 450 330 520 320 C620 305 680 310 760 316 C840 322 920 320 1020 320"/>
+  <line x1="430" y1="210" x2="430" y2="520" class="cursorA"/>
+  <line x1="820" y1="210" x2="820" y2="520" class="cursorB"/>
+  <text x="418" y="200" class="label" fill="#da5d3f">A</text>
+  <text x="808" y="200" class="label" fill="#1e6f5c">B</text>
+  <text x="900" y="230" class="label">Delta time</text>
+  <text x="900" y="258" class="label">Delta PV</text>
+  <text x="900" y="286" class="label">Delta CO</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">How cursor measurement turns a trend into a lesson</text>
+  <text x="600" y="620" text-anchor="middle" class="sub">Two cursors let operators measure rise time, settling time, disturbance recovery, and how far PV or CO moved between events.</text>
+</svg>

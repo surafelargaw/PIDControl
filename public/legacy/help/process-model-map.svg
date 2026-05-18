@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Process model families</title>
+  <desc id="desc">Map of process model families used by the simulator.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .box { stroke-width: 2; rx: 24; }
+      .g { fill: #eef4ea; stroke: #6d7b2c; }
+      .f { fill: #eef7f8; stroke: #1489a7; }
+      .p { fill: #edf3ff; stroke: #2c56d0; }
+      .l { fill: #f4edff; stroke: #7b3bc4; }
+      .t { fill: #fff0eb; stroke: #da5d3f; }
+      .h { fill: #e6f4ea; stroke: #2a8a44; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 19px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .note { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .micro { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #4f6259; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <text x="600" y="78" text-anchor="middle" class="txt" style="font-size:34px">Process model library at a glance</text>
+  <text x="600" y="118" text-anchor="middle" class="sub">Each family teaches a different kind of plant behavior, response speed, and tuning challenge.</text>
+  <rect x="90" y="160" width="300" height="250" class="box g"/>
+  <rect x="450" y="160" width="300" height="250" class="box f"/>
+  <rect x="810" y="160" width="300" height="250" class="box p"/>
+  <rect x="90" y="420" width="300" height="250" class="box l"/>
+  <rect x="450" y="420" width="300" height="250" class="box t"/>
+  <rect x="810" y="420" width="300" height="250" class="box h"/>
+  <text x="240" y="230" text-anchor="middle" class="txt">Generic</text>
+  <text x="240" y="268" text-anchor="middle" class="sub">Lag and deadtime teaching models</text>
+  <text x="240" y="316" text-anchor="middle" class="note">Best for first studies</text>
+  <text x="240" y="344" text-anchor="middle" class="micro">Use these to learn gain, lag,</text>
+  <text x="240" y="368" text-anchor="middle" class="micro">deadtime, and damping without</text>
+  <text x="240" y="392" text-anchor="middle" class="micro">extra process-specific effects.</text>
+  <text x="600" y="230" text-anchor="middle" class="txt">Flow</text>
+  <text x="600" y="268" text-anchor="middle" class="sub">Fast response and low storage</text>
+  <text x="600" y="316" text-anchor="middle" class="note">Quick process family</text>
+  <text x="600" y="344" text-anchor="middle" class="micro">Flow loops react quickly and</text>
+  <text x="600" y="368" text-anchor="middle" class="micro">show valve nonlinearity, noise,</text>
+  <text x="600" y="392" text-anchor="middle" class="micro">and derivative sensitivity fast.</text>
+  <text x="960" y="230" text-anchor="middle" class="txt">Pressure</text>
+  <text x="960" y="262" text-anchor="middle" class="sub">Fast loops with</text>
+  <text x="960" y="286" text-anchor="middle" class="sub">disturbance sensitivity</text>
+  <text x="960" y="332" text-anchor="middle" class="note">Sensitive and reactive</text>
+  <text x="960" y="360" text-anchor="middle" class="micro">Pressure loops move fast, react</text>
+  <text x="960" y="384" text-anchor="middle" class="micro">to load changes quickly, and can</text>
+  <text x="960" y="408" text-anchor="middle" class="micro">hunt if the tuning is too sharp.</text>
+  <text x="240" y="480" text-anchor="middle" class="txt">Level</text>
+  <text x="240" y="512" text-anchor="middle" class="sub">Storage, drift, and</text>
+  <text x="240" y="536" text-anchor="middle" class="sub">integration effects</text>
+  <text x="240" y="582" text-anchor="middle" class="note">Inventory-driven behavior</text>
+  <text x="240" y="610" text-anchor="middle" class="micro">Level processes store mass, so</text>
+  <text x="240" y="634" text-anchor="middle" class="micro">the PV can drift for a long time</text>
+  <text x="240" y="658" text-anchor="middle" class="micro">after a valve change.</text>
+  <text x="600" y="480" text-anchor="middle" class="txt">Temperature</text>
+  <text x="600" y="512" text-anchor="middle" class="sub">Thermal lag and</text>
+  <text x="600" y="536" text-anchor="middle" class="sub">overshoot persistence</text>
+  <text x="600" y="582" text-anchor="middle" class="note">Slow thermal storage</text>
+  <text x="600" y="610" text-anchor="middle" class="micro">Temperature loops carry thermal</text>
+  <text x="600" y="634" text-anchor="middle" class="micro">lag, so overshoot lasts longer and</text>
+  <text x="600" y="658" text-anchor="middle" class="micro">aggressive tuning is harder to hide.</text>
+  <text x="960" y="480" text-anchor="middle" class="txt">Humidity</text>
+  <text x="960" y="512" text-anchor="middle" class="sub">Very slow response and</text>
+  <text x="960" y="536" text-anchor="middle" class="sub">long review windows</text>
+  <text x="960" y="582" text-anchor="middle" class="note">Long-cycle moisture control</text>
+  <text x="960" y="610" text-anchor="middle" class="micro">Humidity loops respond slowly,</text>
+  <text x="960" y="634" text-anchor="middle" class="micro">so operators need patience and</text>
+  <text x="960" y="658" text-anchor="middle" class="micro">longer trend windows to tune well.</text>
+</svg>

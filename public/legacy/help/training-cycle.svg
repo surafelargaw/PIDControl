@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Training cycle</title>
+  <desc id="desc">Cycle showing model selection, tuning study, apply tuning, watch trend, and debrief.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .node { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 22; }
+      .txt { font: 700 26px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 18px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .arrow { stroke: #1e6f5c; stroke-width: 4; fill: none; marker-end: url(#end); }
+    </style>
+    <marker id="end" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#1e6f5c"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <rect x="90" y="250" width="180" height="110" class="node"/>
+  <rect x="320" y="100" width="220" height="110" class="node"/>
+  <rect x="630" y="100" width="220" height="110" class="node"/>
+  <rect x="910" y="250" width="200" height="110" class="node"/>
+  <rect x="620" y="500" width="240" height="110" class="node"/>
+  <rect x="300" y="500" width="220" height="110" class="node"/>
+  <text x="180" y="295" text-anchor="middle" class="txt">Choose model</text>
+  <text x="180" y="324" text-anchor="middle" class="sub">Understand the plant</text>
+  <text x="430" y="145" text-anchor="middle" class="txt">Run study</text>
+  <text x="430" y="174" text-anchor="middle" class="sub">Measure K, Ku, Pu, tau</text>
+  <text x="740" y="145" text-anchor="middle" class="txt">Apply tuning</text>
+  <text x="740" y="174" text-anchor="middle" class="sub">Push constants to the live loop</text>
+  <text x="1010" y="295" text-anchor="middle" class="txt">Watch trends</text>
+  <text x="1010" y="324" text-anchor="middle" class="sub">PV, CO, valve, P/I/D</text>
+  <text x="740" y="545" text-anchor="middle" class="txt">Debrief</text>
+  <text x="740" y="574" text-anchor="middle" class="sub">Overshoot, settling, comfort, wear</text>
+  <text x="410" y="545" text-anchor="middle" class="txt">Repeat</text>
+  <text x="410" y="574" text-anchor="middle" class="sub">Compare methods and models</text>
+  <path class="arrow" d="M270 305 C315 305 330 230 360 210"/>
+  <path class="arrow" d="M540 155 H630"/>
+  <path class="arrow" d="M850 155 C910 155 930 220 940 250"/>
+  <path class="arrow" d="M1000 360 C1000 460 930 530 860 550"/>
+  <path class="arrow" d="M620 550 H520"/>
+  <path class="arrow" d="M300 550 C180 520 150 430 150 360"/>
+  <text x="600" y="62" text-anchor="middle" class="txt" style="font-size:34px">A good training session is a closed loop too</text>
+</svg>

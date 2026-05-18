@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Control loop overview</title>
+  <desc id="desc">Block diagram showing setpoint, controller, actuator, process, sensor, and feedback loop.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #ffffff; stroke: #cfd8cd; stroke-width: 2; rx: 22; }
+      .sp { fill: #e6f4ea; stroke: #2a8a44; }
+      .ctrl { fill: #edf3ff; stroke: #2c56d0; }
+      .act { fill: #fff0eb; stroke: #da5d3f; }
+      .proc { fill: #eef7f8; stroke: #1489a7; }
+      .sens { fill: #f7f0ff; stroke: #7b3bc4; }
+      .txt { font: 600 28px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #51645b; }
+      .arrow { stroke: #203028; stroke-width: 4; fill: none; marker-end: url(#end); }
+      .signal { font: 700 20px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+    <marker id="end" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#203028"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="680"/>
+  <rect x="60" y="250" width="170" height="110" class="panel sp"/>
+  <text x="145" y="302" text-anchor="middle" class="txt">Setpoint</text>
+  <text x="145" y="334" text-anchor="middle" class="sub">Target condition</text>
+  <rect x="320" y="210" width="220" height="190" class="panel ctrl"/>
+  <text x="430" y="270" text-anchor="middle" class="txt">PID Controller</text>
+  <text x="430" y="310" text-anchor="middle" class="sub">P + I + D + Bias</text>
+  <text x="430" y="344" text-anchor="middle" class="sub">Filters and limits</text>
+  <rect x="640" y="250" width="190" height="110" class="panel act"/>
+  <text x="735" y="302" text-anchor="middle" class="txt">Actuator</text>
+  <text x="735" y="334" text-anchor="middle" class="sub">Valve or VFD</text>
+  <rect x="920" y="250" width="220" height="110" class="panel proc"/>
+  <text x="1030" y="302" text-anchor="middle" class="txt">Process</text>
+  <text x="1030" y="334" text-anchor="middle" class="sub">Flow / pressure / temp</text>
+  <rect x="920" y="500" width="220" height="100" class="panel sens"/>
+  <text x="1030" y="548" text-anchor="middle" class="txt">Sensor</text>
+  <text x="1030" y="578" text-anchor="middle" class="sub">Measured PV</text>
+  <path class="arrow" d="M230 305 H320"/>
+  <path class="arrow" d="M540 305 H640"/>
+  <path class="arrow" d="M830 305 H920"/>
+  <path class="arrow" d="M1030 360 V500"/>
+  <path class="arrow" d="M920 550 H430 V400"/>
+  <text x="272" y="287" class="signal">SP</text>
+  <text x="586" y="287" class="signal">CO</text>
+  <text x="870" y="287" class="signal">Plant input</text>
+  <text x="828" y="528" class="signal">PV feedback</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Closed-loop cause and effect</text>
+  <text x="600" y="110" text-anchor="middle" class="sub">The operator changes SP, the controller calculates CO, the actuator moves, the process responds, and the sensor closes the loop.</text>
+</svg>

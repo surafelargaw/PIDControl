@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Tuning method comparison</title>
+  <desc id="desc">Conceptual comparison of aggressiveness and stability across tuning methods.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .axis { stroke: #203028; stroke-width: 4; }
+      .dot1 { fill: #1e6f5c; }
+      .dot2 { fill: #da5d3f; }
+      .dot3 { fill: #7b3bc4; }
+      .dot4 { fill: #1489a7; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <line x1="150" y1="540" x2="1030" y2="540" class="axis"/>
+  <line x1="150" y1="540" x2="150" y2="140" class="axis"/>
+  <text x="1030" y="582" text-anchor="end" class="label">More aggressive / faster</text>
+  <text x="162" y="160" class="label">Calmer / more conservative</text>
+  <circle cx="360" cy="260" r="18" class="dot1"/>
+  <circle cx="700" cy="430" r="18" class="dot2"/>
+  <circle cx="520" cy="310" r="18" class="dot3"/>
+  <circle cx="620" cy="360" r="18" class="dot4"/>
+  <text x="392" y="266" class="label">Tyreus-Luyben</text>
+  <text x="732" y="436" class="label">Ziegler-Nichols</text>
+  <text x="552" y="316" class="label">Cohen-Coon</text>
+  <text x="652" y="366" class="label">Relay autotune depends on rule family</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Each tuning method carries a different philosophy</text>
+  <text x="600" y="112" text-anchor="middle" class="sub">Fast recovery, calm response, and ease of testing do not all point to the same method.</text>
+</svg>

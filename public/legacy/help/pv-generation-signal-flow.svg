@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 900" role="img" aria-labelledby="title desc">
+  <title id="title">PV Generation Signal Flow</title>
+  <desc id="desc">How controller output becomes actual PV, then measured PV, in the PID simulation.</desc>
+  <defs>
+    <marker id="arrowhead" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569" />
+    </marker>
+    <style>
+      .canvas { fill: #f8fafc; }
+      .page-title { font: 700 38px Arial, sans-serif; fill: #0f172a; }
+      .subtitle { font: 400 19px Arial, sans-serif; fill: #475569; }
+      .box { stroke-width: 2; }
+      .blue { fill: #eff6ff; stroke: #60a5fa; }
+      .green { fill: #ecfdf5; stroke: #34d399; }
+      .amber { fill: #fffbeb; stroke: #f59e0b; }
+      .violet { fill: #f5f3ff; stroke: #a78bfa; }
+      .cyan { fill: #ecfeff; stroke: #22d3ee; }
+      .rose { fill: #fff1f2; stroke: #fb7185; }
+      .slate { fill: #f1f5f9; stroke: #94a3b8; }
+      .box-title { font: 700 21px Arial, sans-serif; fill: #0f172a; }
+      .box-text { font: 400 16px Arial, sans-serif; fill: #334155; }
+      .text { font: 400 17px Arial, sans-serif; fill: #334155; }
+      .small { font: 400 14px Arial, sans-serif; fill: #475569; }
+      .formula { font: 600 18px Consolas, "Courier New", monospace; fill: #0f172a; }
+      .formula-note { font: 400 16px Arial, sans-serif; fill: #475569; }
+      .arrow { fill: none; stroke: #475569; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrowhead); }
+      .arrow-label { font: 700 14px Arial, sans-serif; fill: #334155; paint-order: stroke; stroke: #f8fafc; stroke-width: 5; stroke-linejoin: round; }
+      .divider { stroke: #cbd5e1; stroke-width: 2; stroke-dasharray: 8 8; }
+    </style>
+  </defs>
+  <rect class="canvas" width="1360" height="900" />
+  <text x="680" y="58" text-anchor="middle" class="page-title">PV Generation Signal Flow</text>
+  <text x="680" y="91" text-anchor="middle" class="subtitle">How controller output becomes actual PV, then measured PV, in the PID simulation.</text>
+  
+  <text x="48" y="130" class="subtitle">The simulator separates actual process response from measured controller feedback.</text>
+  
+  <g>
+    <path class="arrow" d="M 258 234 L 310 234" />
+    
+  </g>
+
+  <g>
+    <path class="arrow" d="M 560 234 L 612 234" />
+    
+  </g>
+
+  <g>
+    <path class="arrow" d="M 894 234 L 946 234" />
+    
+  </g>
+
+  <g>
+    <path class="arrow" d="M 1121 298 L 700 414" />
+    <text x="910.5" y="346" text-anchor="middle" class="arrow-label">drive[k]</text>
+  </g>
+
+  <g>
+    <path class="arrow" d="M 960 487 L 1016 487" />
+    
+  </g>
+
+  <g>
+    <path class="arrow" d="M 1156 560 L 764 665" />
+    <text x="960" y="602.5" text-anchor="middle" class="arrow-label">measured from process</text>
+  </g>
+
+  <g>
+    <path class="arrow" d="M 568 734 L 430 734" />
+    <text x="499" y="724" text-anchor="middle" class="arrow-label">PVfiltered</text>
+  </g>
+
+  <g>
+    <path class="arrow" stroke-dasharray="8 8" d="M 250 665 L 153 298" />
+    <text x="201.5" y="471.5" text-anchor="middle" class="arrow-label">new CO</text>
+  </g>
+  
+  <g>
+    <rect class="box blue" x="48" y="170" width="210" height="128" rx="14" />
+    <text x="153" y="204" text-anchor="middle" class="box-title">PID Output</text>
+    <text x="70" y="238" class="box-text">CO is clamped by</text>
+<text x="70" y="262" class="box-text">output limits</text>
+<text x="70" y="286" class="box-text">0 to 100 percent</text>
+  </g>
+
+  <g>
+    <rect class="box amber" x="310" y="170" width="250" height="128" rx="14" />
+    <text x="435" y="204" text-anchor="middle" class="box-title">Final Element</text>
+    <text x="332" y="238" class="box-text">deadband, stiction,</text>
+<text x="332" y="262" class="box-text">backlash, overshoot,</text>
+<text x="332" y="286" class="box-text">valve position</text>
+  </g>
+
+  <g>
+    <rect class="box violet" x="612" y="170" width="282" height="128" rx="14" />
+    <text x="753" y="204" text-anchor="middle" class="box-title">Characteristic + Delay</text>
+    <text x="634" y="238" class="box-text">linear / equal percent</text>
+<text x="634" y="262" class="box-text">quick opening</text>
+<text x="634" y="286" class="box-text">deadtime queue</text>
+  </g>
+
+  <g>
+    <rect class="box green" x="946" y="170" width="350" height="128" rx="14" />
+    <text x="1121" y="204" text-anchor="middle" class="box-title">Process Drive</text>
+    <text x="968" y="238" class="box-text">drive = sign * gain * delayedDrive</text>
+<text x="968" y="262" class="box-text">+ disturbance + interaction</text>
+  </g>
+
+  <g>
+    <rect class="box cyan" x="440" y="414" width="520" height="146" rx="14" />
+    <text x="700" y="448" text-anchor="middle" class="box-title">Lag Model</text>
+    <text x="462" y="482" class="box-text">first order: state1 follows drive</text>
+<text x="462" y="506" class="box-text">second order: state2 follows state1</text>
+<text x="462" y="530" class="box-text">integrating: state accumulates drive</text>
+  </g>
+
+  <g>
+    <rect class="box rose" x="1016" y="414" width="280" height="146" rx="14" />
+    <text x="1156" y="448" text-anchor="middle" class="box-title">Actual PV</text>
+    <text x="1038" y="482" class="box-text">PV = initialPV +</text>
+<text x="1038" y="506" class="box-text">selected state * span</text>
+<text x="1038" y="530" class="box-text">clamped to display range</text>
+  </g>
+
+  <g>
+    <rect class="box slate" x="568" y="665" width="392" height="138" rx="14" />
+    <text x="764" y="699" text-anchor="middle" class="box-title">Measurement Path</text>
+    <text x="590" y="733" class="box-text">PV + noise + upset</text>
+<text x="590" y="757" class="box-text">measurement lag</text>
+<text x="590" y="781" class="box-text">optional PV filter</text>
+  </g>
+
+  <g>
+    <rect class="box blue" x="70" y="665" width="360" height="138" rx="14" />
+    <text x="250" y="699" text-anchor="middle" class="box-title">PID Error Uses</text>
+    <text x="92" y="733" class="box-text">error = directionSign *</text>
+<text x="92" y="757" class="box-text">(SPfiltered - PVfiltered)</text>
+<text x="92" y="781" class="box-text">then P, I, D are calculated</text>
+  </g>
+  <text x="48" y="855" class="small">Generated by scripts/generate-pv-block-diagrams.ts. Main implementation: src/lib/sim/engine.ts updateValveState() and updateProcessState().</text>
+</svg>

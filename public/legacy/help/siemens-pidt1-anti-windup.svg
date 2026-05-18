@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 390" role="img" aria-labelledby="title desc">
+  <title id="title">PIDT1 anti-windup branch training diagram</title>
+  <desc id="desc">Original training diagram showing P, I, and filtered D branches with limiter feedback to the integrator for anti-windup.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#a5b4fc"/>
+    </marker>
+    <style>
+      .box{fill:#111827;stroke:#818cf8;stroke-opacity:.62;stroke-width:2}
+      .sum{fill:#172554;stroke:#60a5fa;stroke-width:2}
+      .text{fill:#e5f3ff;font-family:Arial,sans-serif}
+      .muted{fill:#cbd5e1;font-family:Arial,sans-serif}
+      .line{stroke:#a5b4fc;stroke-width:2.4;fill:none;marker-end:url(#arrow)}
+      .aw{stroke:#fb923c;stroke-width:2.4;fill:none;marker-end:url(#arrow);stroke-dasharray:8 6}
+    </style>
+  </defs>
+  <rect width="980" height="390" rx="24" fill="#0f172a"/>
+  <text x="38" y="48" class="text" font-size="26" font-weight="700">PIDT1 with anti-windup, simplified training view</text>
+  <text x="38" y="78" class="muted" font-size="16">The D branch has first-order delay/filtering. The limiter feeds back to the integrator so it does not keep winding up.</text>
+
+  <rect x="48" y="174" width="110" height="54" rx="14" class="box"/>
+  <text x="80" y="207" class="text" font-size="18" font-weight="700">e = w - x</text>
+
+  <rect x="218" y="72" width="180" height="66" rx="14" class="box"/>
+  <text x="266" y="101" class="text" font-size="18" font-weight="700">P branch</text>
+  <text x="248" y="124" class="muted" font-size="14">Kp (b w - x)</text>
+
+  <rect x="218" y="168" width="180" height="66" rx="14" class="box"/>
+  <text x="266" y="197" class="text" font-size="18" font-weight="700">I branch</text>
+  <text x="247" y="220" class="muted" font-size="14">integrator, TI</text>
+
+  <rect x="218" y="264" width="180" height="66" rx="14" class="box"/>
+  <text x="266" y="293" class="text" font-size="18" font-weight="700">D branch</text>
+  <text x="238" y="316" class="muted" font-size="14">TD with T1 = a x TD</text>
+
+  <circle cx="492" cy="201" r="34" class="sum"/>
+  <text x="480" y="208" class="text" font-size="24" font-weight="700">Σ</text>
+
+  <rect x="584" y="168" width="130" height="66" rx="14" class="box"/>
+  <text x="621" y="197" class="text" font-size="18" font-weight="700">PIDT1</text>
+  <text x="606" y="220" class="muted" font-size="14">filtered sum</text>
+
+  <rect x="780" y="168" width="130" height="66" rx="14" class="box"/>
+  <text x="817" y="197" class="text" font-size="18" font-weight="700">Limiter</text>
+  <text x="803" y="220" class="muted" font-size="14">OutputLower/Upper</text>
+
+  <text x="932" y="208" class="text" font-size="22" font-weight="700">y</text>
+
+  <path class="line" d="M158 201 C184 201 188 105 218 105"/>
+  <path class="line" d="M158 201 L218 201"/>
+  <path class="line" d="M158 201 C184 201 188 297 218 297"/>
+  <path class="line" d="M398 105 C436 105 448 174 462 187"/>
+  <path class="line" d="M398 201 L458 201"/>
+  <path class="line" d="M398 297 C436 297 448 228 462 215"/>
+  <path class="line" d="M526 201 L584 201"/>
+  <path class="line" d="M714 201 L780 201"/>
+  <path class="line" d="M910 201 L928 201"/>
+  <path class="aw" d="M845 234 C845 352 308 358 308 234"/>
+  <text x="478" y="352" class="muted" font-size="14">anti-windup feedback keeps the I branch aligned with the limited output</text>
+</svg>

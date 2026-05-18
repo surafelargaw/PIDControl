@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Filtering versus noise</title>
+  <desc id="desc">Comparison of noisy PV and filtered PV with smoother response.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .card { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #7a8a81; stroke-width: 2; }
+      .noise { fill: none; stroke: #da5d3f; stroke-width: 5; }
+      .filt { fill: none; stroke: #2c56d0; stroke-width: 5; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <rect x="80" y="150" width="1040" height="450" class="card"/>
+  <line x1="150" y1="220" x2="150" y2="540" class="axis"/>
+  <line x1="150" y1="540" x2="1050" y2="540" class="axis"/>
+  <path class="noise" d="M170 470 L210 430 L250 455 L290 390 L330 440 L370 365 L410 420 L450 345 L490 410 L530 320 L570 365 L610 300 L650 360 L690 290 L730 355 L770 282 L810 345 L850 278 L890 340 L930 274 L970 338 L1010 270"/>
+  <path class="filt" d="M170 500 C230 495 270 470 320 438 C380 400 425 365 490 338 C560 310 640 294 710 288 C800 282 900 280 1010 280"/>
+  <text x="600" y="78" text-anchor="middle" class="txt" style="font-size:34px">Why PV filtering helps and hurts</text>
+  <text x="600" y="118" text-anchor="middle" class="sub">A raw noisy signal can drive CO chatter. Filtering smooths the signal, but it also adds lag.</text>
+  <text x="860" y="228" class="label" fill="#da5d3f">Noisy measured PV</text>
+  <text x="820" y="260" class="label" fill="#2c56d0">Filtered PV seen by controller</text>
+  <text x="180" y="620" class="sub">Too little filtering: busy output and noisy D action</text>
+  <text x="180" y="648" class="sub">Too much filtering: calmer signal but slower disturbance response</text>
+</svg>

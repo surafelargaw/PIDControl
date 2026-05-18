@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">PID terms overview</title>
+  <desc id="desc">Illustration of proportional, integral, and derivative action in plain language.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .box { fill: #ffffff; stroke: #cfd8cd; stroke-width: 2; rx: 22; }
+      .p { fill: #eaf6fb; stroke: #12a3d7; }
+      .i { fill: #f4edff; stroke: #7b3bc4; }
+      .d { fill: #f4f5f6; stroke: #9ca6ad; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .lineP { fill: none; stroke: #12a3d7; stroke-width: 6; }
+      .lineI { fill: none; stroke: #7b3bc4; stroke-width: 6; }
+      .lineD { fill: none; stroke: #9ca6ad; stroke-width: 6; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <rect x="70" y="180" width="320" height="470" class="box p"/>
+  <rect x="440" y="180" width="320" height="470" class="box i"/>
+  <rect x="810" y="180" width="320" height="470" class="box d"/>
+  <text x="230" y="240" text-anchor="middle" class="txt">P term</text>
+  <text x="230" y="274" text-anchor="middle" class="sub">Responds to present error</text>
+  <path class="lineP" d="M110 560 L160 560 L210 470 L260 420 L320 400"/>
+  <text x="110" y="610" class="sub">Big error = big push</text>
+  <text x="110" y="640" class="sub">Fast but can overshoot</text>
+  <text x="600" y="240" text-anchor="middle" class="txt">I term</text>
+  <text x="600" y="274" text-anchor="middle" class="sub">Accumulates error over time</text>
+  <path class="lineI" d="M480 560 C520 560 535 545 555 520 C575 495 600 450 650 400 C685 365 710 340 730 325"/>
+  <text x="480" y="610" class="sub">Removes offset</text>
+  <text x="480" y="640" class="sub">Can wind up if limits are hit</text>
+  <text x="970" y="240" text-anchor="middle" class="txt">D term</text>
+  <text x="970" y="274" text-anchor="middle" class="sub">React to rate of change</text>
+  <path class="lineD" d="M860 560 L910 520 L960 480 L1010 500 L1060 540"/>
+  <text x="860" y="610" class="sub">Adds damping and anticipation</text>
+  <text x="860" y="640" class="sub">Sensitive to noisy PV</text>
+  <text x="600" y="80" text-anchor="middle" class="txt" style="font-size:34px">Why P, I, and D feel different on the trend</text>
+  <text x="600" y="122" text-anchor="middle" class="sub">P acts on present error, I keeps correcting remaining error, and D reacts to motion to reduce overshoot.</text>
+</svg>

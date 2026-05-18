@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 430" role="img" aria-labelledby="title desc">
+  <title id="title">Siemens PID_Compact block diagram training view</title>
+  <desc id="desc">Original training diagram showing setpoint and process value entering weighted P, I, and filtered D branches before limiting and anti-windup.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#93c5fd"/>
+    </marker>
+    <style>
+      .box{fill:#111827;stroke:#38bdf8;stroke-opacity:.55;stroke-width:2}
+      .small{fill:#1e293b;stroke:#64748b;stroke-width:1.5}
+      .text{fill:#e5f3ff;font-family:Arial,sans-serif}
+      .muted{fill:#cbd5e1;font-family:Arial,sans-serif}
+      .line{stroke:#93c5fd;stroke-width:2.4;fill:none;marker-end:url(#arrow)}
+      .feedback{stroke:#f97316;stroke-width:2.4;fill:none;marker-end:url(#arrow);stroke-dasharray:8 6}
+    </style>
+  </defs>
+  <rect width="980" height="430" rx="24" fill="#0f172a"/>
+  <text x="38" y="48" class="text" font-size="26" font-weight="700">PID_Compact block diagram, operator training view</text>
+  <text x="38" y="78" class="muted" font-size="16">Signals are arranged to show behavior, not exact Siemens artwork.</text>
+
+  <rect x="42" y="130" width="90" height="48" rx="12" class="box"/>
+  <text x="64" y="160" class="text" font-size="18" font-weight="700">w / SP</text>
+  <rect x="42" y="248" width="90" height="48" rx="12" class="box"/>
+  <text x="64" y="278" class="text" font-size="18" font-weight="700">x / PV</text>
+
+  <rect x="180" y="82" width="185" height="74" rx="14" class="small"/>
+  <text x="205" y="114" class="text" font-size="18" font-weight="700">P weighting</text>
+  <text x="205" y="138" class="muted" font-size="14">b w - x</text>
+
+  <rect x="180" y="178" width="185" height="74" rx="14" class="small"/>
+  <text x="205" y="210" class="text" font-size="18" font-weight="700">I action</text>
+  <text x="205" y="234" class="muted" font-size="14">(w - x) / TI</text>
+
+  <rect x="180" y="274" width="185" height="74" rx="14" class="small"/>
+  <text x="205" y="306" class="text" font-size="18" font-weight="700">D weighting + T1</text>
+  <text x="205" y="330" class="muted" font-size="14">TD s / (a TD s + 1)</text>
+
+  <circle cx="464" cy="215" r="34" fill="#172554" stroke="#60a5fa" stroke-width="2"/>
+  <text x="452" y="222" class="text" font-size="24" font-weight="700">Σ</text>
+
+  <rect x="550" y="180" width="145" height="70" rx="14" class="box"/>
+  <text x="586" y="210" class="text" font-size="18" font-weight="700">Kp gain</text>
+  <text x="576" y="234" class="muted" font-size="14">Retain.CtrlParams.Gain</text>
+
+  <rect x="752" y="174" width="145" height="82" rx="14" class="box"/>
+  <text x="782" y="204" class="text" font-size="18" font-weight="700">Limits</text>
+  <text x="779" y="228" class="muted" font-size="14">anti-windup</text>
+  <text x="783" y="246" class="muted" font-size="14">manual/error state</text>
+
+  <rect x="905" y="191" width="54" height="48" rx="12" class="box"/>
+  <text x="926" y="222" class="text" font-size="19" font-weight="700">y</text>
+
+  <path class="line" d="M132 154 C150 154 158 112 180 112"/>
+  <path class="line" d="M132 154 C150 154 158 215 180 215"/>
+  <path class="line" d="M132 154 C150 154 158 312 180 312"/>
+  <path class="line" d="M132 272 C150 272 158 128 180 128"/>
+  <path class="line" d="M132 272 C150 272 158 230 180 230"/>
+  <path class="line" d="M132 272 C150 272 158 330 180 330"/>
+
+  <path class="line" d="M365 119 C402 119 421 187 436 198"/>
+  <path class="line" d="M365 215 L430 215"/>
+  <path class="line" d="M365 311 C402 311 421 243 436 232"/>
+  <path class="line" d="M498 215 L550 215"/>
+  <path class="line" d="M695 215 L752 215"/>
+  <path class="line" d="M897 215 L905 215"/>
+  <path class="feedback" d="M828 256 C828 382 250 392 250 348"/>
+  <text x="500" y="384" class="muted" font-size="14">tracking feedback limits integral windup during saturation</text>
+</svg>

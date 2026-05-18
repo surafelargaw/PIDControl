@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Simulator workspace map</title>
+  <desc id="desc">Stylized map of the simulator workspace showing toolbar, sidebar tabs, charts, and help view.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .frame { fill: #ffffff; stroke: #ced8cf; stroke-width: 2; rx: 24; }
+      .top { fill: #eef3ec; stroke: #ced8cf; }
+      .side { fill: #f9fbf8; stroke: #ced8cf; }
+      .tabA { fill: #dfeee7; stroke: #1e6f5c; }
+      .tabB { fill: #edf1fc; stroke: #2c56d0; }
+      .tabC { fill: #fff1ec; stroke: #da5d3f; }
+      .chart { fill: #fbfcfb; stroke: #cfd8cd; }
+      .txt { font: 600 28px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #5a6d63; }
+      .note { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .lead { stroke: #203028; stroke-width: 2.5; fill: none; marker-end: url(#end); }
+    </style>
+    <marker id="end" markerUnits="userSpaceOnUse" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 z" fill="#203028"/>
+    </marker>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <rect x="60" y="70" width="1080" height="620" class="frame"/>
+  <rect x="60" y="70" width="1080" height="110" class="top"/>
+  <rect x="90" y="210" width="300" height="450" class="side"/>
+  <rect x="420" y="210" width="680" height="120" class="tabA" rx="20"/>
+  <rect x="420" y="355" width="680" height="170" class="chart" rx="20"/>
+  <rect x="420" y="545" width="680" height="115" class="chart" rx="20"/>
+  <rect x="110" y="240" width="260" height="120" class="tabA" rx="20"/>
+  <rect x="110" y="382" width="260" height="120" class="tabB" rx="20"/>
+  <rect x="110" y="524" width="260" height="110" class="tabC" rx="20"/>
+  <text x="180" y="132" class="txt">Top toolbar</text>
+  <text x="180" y="162" class="sub">Model, speed, pause, reset, export</text>
+  <text x="150" y="285" class="txt" style="font-size:24px">Faceplate</text>
+  <text x="150" y="318" class="sub">SP, PV, CO, Auto, Manual</text>
+  <text x="150" y="427" class="txt" style="font-size:24px">Settings</text>
+  <text x="150" y="460" class="sub">Tuning, filters, noise, valve</text>
+  <text x="150" y="565" class="txt" style="font-size:24px">Advanced</text>
+  <text x="150" y="598" class="sub">Signals and cursors</text>
+  <text x="462" y="275" class="txt">Simulation snapshot</text>
+  <text x="462" y="305" class="sub">Model context and live status notes</text>
+  <text x="462" y="410" class="txt">Trend 1</text>
+  <text x="462" y="444" class="sub">PV, CO, SP, filtered SP, valve feedback</text>
+  <text x="462" y="590" class="txt">Trend 2 and analysis</text>
+  <text x="462" y="622" class="sub">P, I, D, total, metrics, cursors</text>
+  <path class="lead" d="M950 120 C1025 120 1060 150 1060 220"/>
+  <text x="883" y="114" class="note">Start here to choose</text>
+  <text x="883" y="138" class="note">the model and speed</text>
+  <path class="lead" d="M960 260 C1040 260 1080 295 1080 430"/>
+  <text x="902" y="255" class="note">Then read the live</text>
+  <text x="902" y="279" class="note">response on the charts</text>
+  <text x="600" y="42" text-anchor="middle" class="txt" style="font-size:34px">How the operator workspace is organized</text>
+</svg>

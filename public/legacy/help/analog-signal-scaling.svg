@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" role="img" aria-labelledby="title desc">
+  <title id="title">Analog signal scaling</title>
+  <desc id="desc">Illustration of 4 to 20 milliamp scaling to engineering units.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 4; }
+      .line { stroke: #1e6f5c; stroke-width: 6; fill: none; }
+      .dot { fill: #1e6f5c; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="680"/>
+  <rect x="90" y="120" width="1020" height="470" class="panel"/>
+  <line x1="180" y1="520" x2="1000" y2="520" class="axis"/>
+  <line x1="180" y1="520" x2="180" y2="180" class="axis"/>
+  <path class="line" d="M220 480 L590 350 L960 220"/>
+  <circle cx="220" cy="480" r="10" class="dot"/>
+  <circle cx="590" cy="350" r="10" class="dot"/>
+  <circle cx="960" cy="220" r="10" class="dot"/>
+  <text x="220" y="560" text-anchor="middle" class="label">4 mA</text>
+  <text x="590" y="560" text-anchor="middle" class="label">12 mA</text>
+  <text x="960" y="560" text-anchor="middle" class="label">20 mA</text>
+  <text x="132" y="484" text-anchor="end" class="label">EU Min</text>
+  <text x="132" y="354" text-anchor="end" class="label">Midpoint</text>
+  <text x="132" y="224" text-anchor="end" class="label">EU Max</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Standard 4-20 mA linear scaling</text>
+  <text x="600" y="612" text-anchor="middle" class="sub">The app maps 4 mA to EU Min, 12 mA to the midpoint, and 20 mA to EU Max.</text>
+</svg>

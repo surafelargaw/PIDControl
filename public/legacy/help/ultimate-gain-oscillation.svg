@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Ultimate gain oscillation</title>
+  <desc id="desc">Sustained oscillation showing ultimate period Pu for Ziegler-Nichols and Tyreus-Luyben.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 3; }
+      .wave { fill: none; stroke: #2c56d0; stroke-width: 6; }
+      .ref { stroke: #da5d3f; stroke-width: 3; stroke-dasharray: 10 8; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="720"/>
+  <rect x="80" y="120" width="1040" height="500" class="panel"/>
+  <line x1="150" y1="540" x2="1040" y2="540" class="axis"/>
+  <line x1="150" y1="540" x2="150" y2="200" class="axis"/>
+  <line x1="170" y1="370" x2="1020" y2="370" class="ref"/>
+  <path class="wave" d="M170 370 C220 250 300 250 350 370 C400 490 480 490 530 370 C580 250 660 250 710 370 C760 490 840 490 890 370 C940 250 990 250 1020 320"/>
+  <text x="720" y="250" class="label">Sustained oscillation at Ku</text>
+  <text x="742" y="302" class="label">Measure one full cycle as Pu</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Ultimate-gain method looks for the edge of instability</text>
+  <text x="600" y="652" text-anchor="middle" class="sub">At Ku the P-only loop neither dies out nor grows without bound. That repeating period is Pu.</text>
+</svg>

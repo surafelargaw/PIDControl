@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+  <title id="title">Cohen Coon step test</title>
+  <desc id="desc">Open-loop step response with t0, t2, and t3 markers for Cohen-Coon tuning.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 3; }
+      .step { fill: none; stroke: #da5d3f; stroke-width: 6; }
+      .resp { fill: none; stroke: #2c56d0; stroke-width: 6; }
+      .mark { stroke: #1e6f5c; stroke-width: 4; stroke-dasharray: 10 8; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="760"/>
+  <rect x="80" y="120" width="1040" height="560" class="panel"/>
+  <line x1="150" y1="590" x2="1040" y2="590" class="axis"/>
+  <line x1="150" y1="590" x2="150" y2="190" class="axis"/>
+  <path class="step" d="M170 520 L260 520 L260 470 L1020 470"/>
+  <path class="resp" d="M170 520 C270 520 320 520 360 500 C430 468 500 420 560 376 C620 340 700 316 810 300 C900 288 960 286 1020 284"/>
+  <line x1="260" y1="220" x2="260" y2="590" class="mark"/>
+  <line x1="470" y1="220" x2="470" y2="590" class="mark"/>
+  <line x1="560" y1="220" x2="560" y2="590" class="mark"/>
+  <text x="248" y="210" class="label">t0</text>
+  <text x="458" y="210" class="label">t2 at 50%</text>
+  <text x="548" y="210" class="label">t3 at 63.2%</text>
+  <text x="818" y="346" class="label">Response used to estimate K, tau, and tau_del</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Cohen-Coon open-loop response landmarks</text>
+  <text x="600" y="712" text-anchor="middle" class="sub">The app locates the 50% and 63.2% response points to fit a first-order-plus-deadtime style model.</text>
+</svg>

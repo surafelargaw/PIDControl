@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Self regulating versus integrating response</title>
+  <desc id="desc">Comparison of self-regulating and integrating process response to a step.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .panel { fill: #fff; stroke: #cfd8cd; stroke-width: 2; rx: 24; }
+      .axis { stroke: #203028; stroke-width: 3; }
+      .self { fill: none; stroke: #2c56d0; stroke-width: 6; }
+      .intg { fill: none; stroke: #7b3bc4; stroke-width: 6; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #55675f; }
+      .label { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <rect x="80" y="120" width="1040" height="470" class="panel"/>
+  <line x1="150" y1="520" x2="1040" y2="520" class="axis"/>
+  <line x1="150" y1="520" x2="150" y2="190" class="axis"/>
+  <path class="self" d="M180 500 C260 500 320 480 380 430 C450 372 530 320 660 305 C780 292 900 288 1020 286"/>
+  <path class="intg" d="M180 500 C250 500 300 486 360 460 C430 430 510 380 590 330 C680 274 780 228 1020 200"/>
+  <text x="770" y="266" class="label" fill="#2c56d0">Self-regulating: moves toward a new balance</text>
+  <text x="720" y="196" class="label" fill="#7b3bc4">Integrating: keeps drifting while imbalance exists</text>
+  <text x="600" y="72" text-anchor="middle" class="txt" style="font-size:34px">Why integrating loops feel different from self-regulating loops</text>
+  <text x="600" y="620" text-anchor="middle" class="sub">Integrating processes need the controller to remove the imbalance, not just trim around a nearby final value.</text>
+</svg>

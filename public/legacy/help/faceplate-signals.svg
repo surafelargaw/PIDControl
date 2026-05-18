@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" role="img" aria-labelledby="title desc">
+  <title id="title">Faceplate signals</title>
+  <desc id="desc">Diagram of faceplate cards showing setpoint, process variable, controller output, and valve feedback.</desc>
+  <defs>
+    <style>
+      .bg { fill: #f6f9f4; }
+      .card { stroke-width: 2; rx: 22; }
+      .sp { fill: #e6f4ea; stroke: #2a8a44; }
+      .pv { fill: #edf3ff; stroke: #2c56d0; }
+      .co { fill: #fff0eb; stroke: #da5d3f; }
+      .vf { fill: #eef7f8; stroke: #1489a7; }
+      .txt { font: 700 30px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .sub { font: 400 20px 'Segoe UI', Arial, sans-serif; fill: #5a6d63; }
+      .note { font: 700 18px 'Segoe UI', Arial, sans-serif; fill: #203028; }
+      .micro { font: 400 17px 'Segoe UI', Arial, sans-serif; fill: #4f6259; }
+    </style>
+  </defs>
+  <rect class="bg" width="1200" height="700"/>
+  <rect x="90" y="180" width="220" height="300" class="card sp"/>
+  <rect x="350" y="180" width="220" height="300" class="card pv"/>
+  <rect x="610" y="180" width="220" height="300" class="card co"/>
+  <rect x="870" y="180" width="240" height="300" class="card vf"/>
+  <text x="200" y="245" text-anchor="middle" class="txt">SP</text>
+  <text x="200" y="280" text-anchor="middle" class="sub">What the controller wants</text>
+  <text x="200" y="338" text-anchor="middle" class="note">Target value</text>
+  <text x="200" y="366" text-anchor="middle" class="micro">Use it to define the desired</text>
+  <text x="200" y="392" text-anchor="middle" class="micro">operating condition before you</text>
+  <text x="200" y="418" text-anchor="middle" class="micro">judge loop performance.</text>
+  <text x="460" y="245" text-anchor="middle" class="txt">PV</text>
+  <text x="460" y="280" text-anchor="middle" class="sub">What the process is doing</text>
+  <text x="460" y="338" text-anchor="middle" class="note">Measured result</text>
+  <text x="460" y="366" text-anchor="middle" class="micro">Compare PV to SP to see whether</text>
+  <text x="460" y="392" text-anchor="middle" class="micro">the process followed, drifted,</text>
+  <text x="460" y="418" text-anchor="middle" class="micro">or oscillated after a change.</text>
+  <text x="720" y="245" text-anchor="middle" class="txt">CO</text>
+  <text x="720" y="274" text-anchor="middle" class="sub">What the PID</text>
+  <text x="720" y="300" text-anchor="middle" class="sub">is commanding</text>
+  <text x="720" y="338" text-anchor="middle" class="note">PID effort</text>
+  <text x="720" y="366" text-anchor="middle" class="micro">This shows how hard the loop is</text>
+  <text x="720" y="392" text-anchor="middle" class="micro">pushing the final element to</text>
+  <text x="720" y="418" text-anchor="middle" class="micro">correct the process error.</text>
+  <text x="990" y="245" text-anchor="middle" class="txt">Valve FB</text>
+  <text x="990" y="274" text-anchor="middle" class="sub">What the final element</text>
+  <text x="990" y="300" text-anchor="middle" class="sub">really did</text>
+  <text x="990" y="338" text-anchor="middle" class="note">Mechanical reality</text>
+  <text x="990" y="366" text-anchor="middle" class="micro">Use feedback to confirm whether</text>
+  <text x="990" y="392" text-anchor="middle" class="micro">the actuator matched CO or was</text>
+  <text x="990" y="418" text-anchor="middle" class="micro">limited by defects or lag.</text>
+  <text x="600" y="82" text-anchor="middle" class="txt" style="font-size:34px">How to read the faceplate like an operator</text>
+  <text x="600" y="124" text-anchor="middle" class="sub">Read the four values together as one story: target, actual process, controller command, and actuator response.</text>
+</svg>
