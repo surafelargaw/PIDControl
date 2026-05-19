@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { startTransition, useEffect, useMemo, useRef, useState } from "react";
 import {
   advanceSimulationStep,
@@ -20,6 +19,7 @@ import { FieldHelpTip, FieldLabel, type FieldHelpContent } from "@/components/pl
 import { downloadRunReportPdf, downloadSvgAsPng, recordToPdfPayload } from "@/lib/platform/reporting";
 import { saveRun, saveScenarioAttempt } from "@/lib/platform/local-store";
 import { scoreScenarioAttempt } from "@/lib/platform/scenarios";
+import { AppLink } from "@/lib/platform/hash-router";
 import { clamp, slugify } from "@/lib/sim/utils";
 
 function getSampleAtTime(history: ReturnType<typeof createRuntime>["history"], time: number | null) {
@@ -771,7 +771,7 @@ export function LabWorkspace({ scenario }: { scenario: ScenarioDefinition | null
             <div className="button-row" style={{ marginTop: "1rem" }}>
               <button className="button button-secondary" onClick={saveCurrentRun}>Save Run</button>
               {scenario ? <button className="button button-secondary" onClick={scoreScenario}>Score Scenario</button> : null}
-              <Link href="/saved-runs" className="button button-secondary">Saved Runs</Link>
+              <AppLink href="/saved-runs" className="button button-secondary">Saved Runs</AppLink>
             </div>
           </article>
         </div>

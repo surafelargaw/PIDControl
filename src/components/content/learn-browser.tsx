@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "next/navigation";
 import { WidgetHost, type WidgetSlot } from "@/components/learn/widget-host";
 import { lessonRegistry } from "@/lib/content/lessons";
 import { renderMarkdown } from "@/lib/content/markdown";
 import { buildLessonSearchSections, searchLessonSections, type LessonSearchSection } from "@/lib/content/search";
+import { publicAssetPath } from "@/lib/platform/assets";
+import { useHashRoute } from "@/lib/platform/hash-router";
 
 type Lesson = (typeof lessonRegistry)[number];
 
@@ -24,7 +25,7 @@ export function LearnBrowser() {
   const [widgetSlots, setWidgetSlots] = useState<WidgetSlot[]>([]);
   const [pendingAnchor, setPendingAnchor] = useState<{ lessonId: string; headingId: string } | null>(null);
   const lessonContentRef = useRef<HTMLDivElement | null>(null);
-  const searchParams = useSearchParams();
+  const { params: searchParams, anchor } = useHashRoute();
   const activeLesson = useMemo(
     () => lessonRegistry.find((lesson) => lesson.id === activeLessonId) ?? lessonRegistry[0],
     [activeLessonId]
@@ -44,7 +45,7 @@ export function LearnBrowser() {
     Promise.all(
       lessonRegistry.map(async (lesson) => {
         try {
-          const response = await fetch(lesson.file);
+          const response = await fetch(publicAssetPath(lesson.file));
           const markdown = await response.text();
           return { lesson, markdown };
         } catch {
@@ -80,8 +81,11 @@ export function LearnBrowser() {
 
     if (lessonRegistry.some((lesson) => lesson.id === requestedLessonId)) {
       setActiveLessonId(requestedLessonId);
+      if (anchor) {
+        setPendingAnchor({ lessonId: requestedLessonId, headingId: anchor });
+      }
     }
-  }, [searchParams]);
+  }, [anchor, searchParams]);
 
   useEffect(() => {
     if (activeLesson && isPlatformReferenceLesson(activeLesson)) {
@@ -99,7 +103,7 @@ export function LearnBrowser() {
       return;
     }
 
-    fetch(activeLesson.file)
+    fetch(publicAssetPath(activeLesson.file))
       .then((response) => response.text())
       .then((markdown) => {
         setLessonMarkdown((current) => ({ ...current, [activeLesson.id]: markdown }));

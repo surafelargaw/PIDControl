@@ -1,9 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { navItems } from "@/lib/platform/navigation";
 import { ThemeControls } from "@/components/platform/theme-controls";
+import { AppLink, useHashRoute } from "@/lib/platform/hash-router";
 
 function NavGlyph({ route }: Readonly<{ route: string }>) {
   const commonProps = {
@@ -116,7 +115,7 @@ export function AppShell({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const pathname = usePathname();
+  const { path } = useHashRoute();
 
   return (
     <div className="shell">
@@ -129,9 +128,9 @@ export function AppShell({
 
         <nav className="nav-card nav-group" aria-label="Primary">
           {navItems.map((item) => {
-            const active = pathname === item.href;
+            const active = path === item.href;
             return (
-              <Link
+              <AppLink
                 key={item.href}
                 href={item.href}
                 className={`nav-link${active ? " active" : ""}`}
@@ -143,7 +142,7 @@ export function AppShell({
                   <strong>{item.title}</strong>
                   <span>{item.description}</span>
                 </span>
-              </Link>
+              </AppLink>
             );
           })}
         </nav>

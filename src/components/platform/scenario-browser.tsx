@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { AppLink } from "@/lib/platform/hash-router";
 import { scenarioRegistry } from "@/lib/platform/scenarios";
 
 export function ScenarioBrowser() {
@@ -35,9 +35,9 @@ export function ScenarioBrowser() {
                 </p>
               </div>
             </div>
-            <Link href={`/lab?scenario=${scenario.id}`} className="button button-primary">
+            <AppLink href={`/lab?scenario=${scenario.id}`} className="button button-primary">
               Start Scenario
-            </Link>
+            </AppLink>
           </article>
         ))}
       </section>

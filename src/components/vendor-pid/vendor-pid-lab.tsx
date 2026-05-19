@@ -1,10 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { FieldHelpTip, FieldLabel, type FieldHelpContent } from "@/components/platform/field-help";
 import { StabilityBadge } from "@/components/sim/stability-badge";
 import { TrendChart } from "@/components/sim/trend-chart";
+import { AppLink } from "@/lib/platform/hash-router";
 import { assessControlTrendStability, type ControlTrendStability } from "@/lib/control-loop/stability";
 import { buildVendorPidConfig, vendorPidProfiles, vendorPlants } from "@/lib/vendor-pid/profiles";
 import {
@@ -787,9 +787,9 @@ export function VendorPidLab() {
             <div className="annotation">
               <h3>Sources</h3>
               <div className="vendor-source-list">
-                <Link href="/learn?lesson=vendor-pid-technical-background">
+                <AppLink href="/learn?lesson=vendor-pid-technical-background">
                   Technical background lesson
-                </Link>
+                </AppLink>
                 {activeProfile.sourceLinks.map((link) => (
                   <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
                     {link.label}

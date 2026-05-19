@@ -1,3 +1,5 @@
+import { publicAssetPath } from "@/lib/platform/assets";
+
 function escapeHtml(value: string) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -10,10 +12,11 @@ function escapeHtml(value: string) {
 function inlineFormat(text: string) {
   let html = escapeHtml(text);
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, label, href) => {
-    const adjustedHref = String(href).replace(/^assets\/help\//, "/legacy/help/");
-    if (/^(?:javascript|data|vbscript):/i.test(adjustedHref.trim())) {
+    const rawHref = String(href).trim();
+    if (/^(?:javascript|data|vbscript):/i.test(rawHref)) {
       return label;
     }
+    const adjustedHref = publicAssetPath(rawHref.replace(/^assets\/help\//, "/legacy/help/"));
     return `<a href="${adjustedHref}" target="_blank" rel="noreferrer">${label}</a>`;
   });
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
@@ -99,7 +102,7 @@ function parseImageLine(trimmed: string) {
 
   const [, alt, src] = match;
   const safeAlt = escapeHtml(alt || "Illustration");
-  const adjustedSrc = escapeHtml(String(src).replace(/^assets\/help\//, "/legacy/help/"));
+  const adjustedSrc = escapeHtml(publicAssetPath(String(src).replace(/^assets\/help\//, "/legacy/help/")));
 
   return `
     <figure class="lesson-figure">

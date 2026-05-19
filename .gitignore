@@ -6,6 +6,10 @@ node_modules/
 .next-dev/
 out/
 
+# Vite build outputs
+dist/
+.vite/
+
 # TypeScript incremental state
 *.tsbuildinfo
 

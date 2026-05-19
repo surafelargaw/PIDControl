@@ -1,5 +1,5 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import { AppLink } from "@/lib/platform/hash-router";
 
 export type FieldHelpContent = {
   title: string;
@@ -17,7 +17,7 @@ export function FieldHelpTip({ help }: { help: FieldHelpContent }) {
       <span className="field-help-popover" role="tooltip">
         <strong>{help.title}</strong>
         <span>{help.body}</span>
-        <Link href={help.href}>{help.linkLabel ?? "Open lesson"}</Link>
+        <AppLink href={help.href}>{help.linkLabel ?? "Open lesson"}</AppLink>
       </span>
     </span>
   );

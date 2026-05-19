@@ -1,0 +1,10 @@
+{
+  "name": "PID Trainer Platform",
+  "short_name": "PID Trainer",
+  "description": "Operator-focused PID training platform with simulator, scenarios, and instructor tooling.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#eef3f8",
+  "theme_color": "#eef3f8",
+  "icons": []
+}

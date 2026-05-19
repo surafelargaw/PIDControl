@@ -35,7 +35,7 @@ export function ServiceWorkerRegistration() {
       hostname === "127.0.0.1" ||
       hostname === "::1";
 
-    if (process.env.NODE_ENV !== "production" || isLocalHost || window.location.protocol !== "https:") {
+    if (import.meta.env.DEV || isLocalHost || window.location.protocol !== "https:") {
       const hadController = Boolean(navigator.serviceWorker.controller);
 
       void Promise.all([unregisterServiceWorkers(), clearPidTrainerCaches()])
@@ -55,7 +55,8 @@ export function ServiceWorkerRegistration() {
       return;
     }
 
-    void navigator.serviceWorker.register("/sw.js").catch((error) => {
+    const serviceWorkerUrl = new URL(`${import.meta.env.BASE_URL}sw.js`, window.location.href);
+    void navigator.serviceWorker.register(serviceWorkerUrl).catch((error) => {
       console.error("Service worker registration failed", error);
     });
   }, []);

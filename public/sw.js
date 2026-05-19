@@ -1,21 +1,12 @@
 const CACHE_NAME = "pid-trainer-v2";
-const APP_SHELL_ROUTES = [
-  "/",
-  "/lab",
-  "/stability-lab",
-  "/learn",
-  "/scenarios",
-  "/saved-runs",
-  "/instructor",
-  "/leaderboard",
-  "/profile"
-];
+const APP_ROOT_URL = new URL("./", self.location.href).toString();
+const APP_SHELL_URL = new URL("index.html", self.location.href).toString();
 
 self.addEventListener("install", (event) => {
   self.skipWaiting();
 
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL_ROUTES))
+    caches.open(CACHE_NAME).then((cache) => cache.addAll([APP_ROOT_URL, APP_SHELL_URL]))
   );
 });
 
@@ -49,7 +40,7 @@ self.addEventListener("fetch", (event) => {
           void caches.open(CACHE_NAME).then((cache) => cache.put(event.request, responseClone));
           return response;
         })
-        .catch(async () => (await caches.match(event.request)) ?? caches.match("/"))
+        .catch(async () => (await caches.match(event.request)) ?? caches.match(APP_SHELL_URL) ?? caches.match(APP_ROOT_URL))
     );
 
     return;

@@ -1,6 +1,6 @@
 # PID Control Platform
 
-An interactive teaching tool for PID tuning, HVAC/BAS simulation, and vendor controller comparison. Built with Next.js 15 and React 19. All simulation and data storage runs entirely in the browser — no backend or environment variables are required.
+An interactive teaching tool for PID tuning, HVAC/BAS simulation, and vendor controller comparison. Built with Vite, React 19, and TypeScript. All simulation and data storage runs entirely in the browser - no backend or environment variables are required.
 
 ## Features
 
@@ -17,25 +17,25 @@ An interactive teaching tool for PID tuning, HVAC/BAS simulation, and vendor con
 
 ## Architecture
 
-- **Pure client-side** — Next.js App Router with `"use client"` components; no API routes or server actions.
-- **No backend** — all saved runs, scenario attempts, and preferences are stored in `localStorage` (capped at 50 runs / 200 attempts).
-- **No environment variables** — clone and run, nothing to configure.
-- **Offline support** — a service worker caches static assets for offline use.
+- **Pure client-side** - Vite single-page app with hash routing; no API routes or server actions.
+- **No backend** - all saved runs, scenario attempts, and preferences are stored in `localStorage` (capped at 50 runs / 200 attempts).
+- **No environment variables** - clone and run, nothing to configure.
+- **Offline support** - a service worker caches static assets for offline use.
 
 ## Getting Started
 
 ```bash
 npm install
-npm run dev        # starts at http://localhost:3000
+npm run dev        # starts the Vite dev server
 ```
 
 ## Common Commands
 
 ```bash
 npm run dev        # local dev server
-npm run build      # production build
-npm run start      # serve production build locally
-npm run lint       # ESLint check
+npm run build      # type-check and create dist/
+npm run preview    # serve the production build locally
+npm run lint       # TypeScript check
 npm run test       # run simulator and content tests
 ```
 

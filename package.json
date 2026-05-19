@@ -6,26 +6,27 @@
     "postcss": "8.5.10"
   },
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "start": "vite preview",
+    "preview": "vite preview",
+    "lint": "tsc --noEmit",
     "diagrams:pv": "tsx scripts/generate-pv-block-diagrams.ts",
     "test": "tsx --test tests/**/*.test.ts"
   },
   "dependencies": {
     "jspdf": "^4.2.1",
-    "next": "^15.5.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
     "@types/node": "^22.13.9",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "eslint": "^9.21.0",
-    "eslint-config-next": "^15.5.18",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vite": "^7.1.12"
   }
 }
