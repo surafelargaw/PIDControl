@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { LearnBrowser } from "@/components/content/learn-browser";
 import { HvacSimulatorWorkspace } from "@/components/hvac/hvac-simulator-workspace";
+import { ImportDataWorkspace } from "@/components/import-data/import-data-workspace";
 import { AppShell } from "@/components/layout/app-shell";
 import { InstructorDashboard } from "@/components/platform/instructor-dashboard";
 import { LeaderboardPanel } from "@/components/platform/leaderboard-panel";
@@ -204,6 +205,8 @@ function AppRoutes() {
       return <LabPage />;
     case "/hvac-simulator":
       return <HvacSimulatorWorkspace />;
+    case "/import-data":
+      return <ImportDataWorkspace />;
     case "/vendor-pid-lab":
       return <VendorPidLab />;
     case "/stability-lab":

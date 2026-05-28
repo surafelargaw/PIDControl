@@ -10,6 +10,11 @@ export const navItems = [
     description: "Data center cooling loops with direct evap, air-cooled, and liquid-cooled plants."
   },
   {
+    href: "/import-data",
+    title: "Import Data",
+    description: "Analyze historical controller trends from CSV or XLSX files."
+  },
+  {
     href: "/vendor-pid-lab",
     title: "Vendor PID Lab",
     description: "Siemens, Honeywell, ALC, and JCI controller-style PID training profiles."

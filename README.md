@@ -8,6 +8,7 @@ An interactive teaching tool for PID tuning, HVAC/BAS simulation, and vendor con
 |--------|-------------|
 | **Lab** | Generic PID simulator with 10+ process models, real-time trend chart, and tuning method studies (Ziegler-Nichols, Cohen-Coon, IMC/Lambda, Relay Autotune) |
 | **HVAC Simulator** | Multi-loop cascade control for direct-evap, air-cooled, and liquid-cooled plants with psychrometric calculations and scenario progression |
+| **Import Data** | CSV/XLSX trend import for historical controller SP/PV/CO analysis, stability verdicts, and optional PID metadata review |
 | **Vendor PID Lab** | Side-by-side comparison of Siemens, Honeywell, ALC, JCI, and ABB PID controller algorithms |
 | **Stability Lab** | Three-panel root-locus / pole-placement visualizer showing stable, marginal, and unstable responses |
 | **Learn** | 33 indexed lessons covering PID fundamentals, tuning methods, troubleshooting, advanced topics, and platform guides; full-text search included |
