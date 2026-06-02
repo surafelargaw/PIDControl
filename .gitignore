@@ -13,6 +13,9 @@ dist/
 # TypeScript incremental state
 *.tsbuildinfo
 
+# Generated Documentation bundle
+src/lib/content/generated-documentation.ts
+
 # Runtime and smoke-test logs
 *.log
 *.err.log

@@ -66,6 +66,8 @@ pac solution import --environment "https://solutionshub-dev.crm.dynamics.com" --
 
 Lesson markdown files live in `public/legacy/docs/sections/` and related images in `public/legacy/help/`. To add a lesson, drop a `.md` file in that folder and register it in [src/lib/content/lessons.ts](src/lib/content/lessons.ts).
 
+Documentation is bundled into the compiled app because hosted Power Apps code apps block runtime fetches by default. The standard `dev`, `build`, `lint`, and `test` commands regenerate the ignored bundle automatically. Run `npm run docs:bundle` directly after editing lesson content if the development server is already running.
+
 ## Tests
 
 ```bash

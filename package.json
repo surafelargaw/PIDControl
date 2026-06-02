@@ -6,12 +6,17 @@
     "postcss": "8.5.10"
   },
   "scripts": {
+    "docs:bundle": "tsx scripts/generate-documentation-bundle.ts",
+    "predev": "npm run docs:bundle",
     "dev": "vite",
+    "prebuild": "npm run docs:bundle",
     "build": "tsc --noEmit && vite build",
     "start": "vite preview",
     "preview": "vite preview",
+    "prelint": "npm run docs:bundle",
     "lint": "tsc --noEmit",
     "diagrams:pv": "tsx scripts/generate-pv-block-diagrams.ts",
+    "pretest": "npm run docs:bundle",
     "test": "tsx --test tests/**/*.test.ts"
   },
   "dependencies": {

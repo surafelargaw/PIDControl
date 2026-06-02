@@ -2,10 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { WidgetHost, type WidgetSlot } from "@/components/learn/widget-host";
+import { getBundledLessonMarkdown } from "@/lib/content/documentation-assets";
 import { lessonRegistry } from "@/lib/content/lessons";
 import { renderMarkdown } from "@/lib/content/markdown";
 import { buildLessonSearchSections, searchLessonSections, type LessonSearchSection } from "@/lib/content/search";
-import { publicAssetPath } from "@/lib/platform/assets";
 import { useHashRoute } from "@/lib/platform/hash-router";
 
 type Lesson = (typeof lessonRegistry)[number];
@@ -13,15 +13,17 @@ type Lesson = (typeof lessonRegistry)[number];
 const isPlatformReferenceLesson = (lesson: Lesson) => lesson.title.startsWith("0.");
 const platformReferenceLessons = lessonRegistry.filter(isPlatformReferenceLesson);
 const advancedLessons = lessonRegistry.filter((lesson) => !isPlatformReferenceLesson(lesson));
+const lessonMarkdown = Object.fromEntries(
+  lessonRegistry.map((lesson) => [lesson.id, getBundledLessonMarkdown(lesson.file)])
+);
+const searchSections: LessonSearchSection[] = lessonRegistry.flatMap((lesson) =>
+  buildLessonSearchSections(lesson, lessonMarkdown[lesson.id])
+);
 
 export function LearnBrowser() {
   const [activeLessonId, setActiveLessonId] = useState<string>(lessonRegistry[0]?.id ?? "");
   const [isPlatformReferenceOpen, setIsPlatformReferenceOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchStatus, setSearchStatus] = useState<"idle" | "loading" | "ready" | "error">("idle");
-  const [searchSections, setSearchSections] = useState<LessonSearchSection[]>([]);
-  const [lessonMarkdown, setLessonMarkdown] = useState<Record<string, string>>({});
-  const [lessonHtml, setLessonHtml] = useState<Record<string, string>>({});
   const [widgetSlots, setWidgetSlots] = useState<WidgetSlot[]>([]);
   const [pendingAnchor, setPendingAnchor] = useState<{ lessonId: string; headingId: string } | null>(null);
   const lessonContentRef = useRef<HTMLDivElement | null>(null);
@@ -30,48 +32,16 @@ export function LearnBrowser() {
     () => lessonRegistry.find((lesson) => lesson.id === activeLessonId) ?? lessonRegistry[0],
     [activeLessonId]
   );
-  const activeLessonHtml = activeLesson ? lessonHtml[activeLesson.id] : "";
+  const activeLessonHtml = useMemo(
+    () => activeLesson ? renderMarkdown(lessonMarkdown[activeLesson.id]) : "",
+    [activeLesson]
+  );
   const isPlatformLessonActive = activeLesson ? isPlatformReferenceLesson(activeLesson) : false;
   const trimmedSearchQuery = searchQuery.trim();
   const searchResults = useMemo(
     () => searchLessonSections(searchSections, trimmedSearchQuery),
     [searchSections, trimmedSearchQuery]
   );
-
-  useEffect(() => {
-    let cancelled = false;
-
-    setSearchStatus("loading");
-    Promise.all(
-      lessonRegistry.map(async (lesson) => {
-        try {
-          const response = await fetch(publicAssetPath(lesson.file));
-          const markdown = await response.text();
-          return { lesson, markdown };
-        } catch {
-          return null;
-        }
-      })
-    ).then((entries) => {
-      if (cancelled) {
-        return;
-      }
-
-      const loadedEntries = entries.filter((entry): entry is { lesson: Lesson; markdown: string } => entry !== null);
-      setLessonMarkdown((current) => ({
-        ...current,
-        ...Object.fromEntries(loadedEntries.map((entry) => [entry.lesson.id, entry.markdown]))
-      }));
-      setSearchSections(
-        loadedEntries.flatMap((entry) => buildLessonSearchSections(entry.lesson, entry.markdown))
-      );
-      setSearchStatus(loadedEntries.length ? "ready" : "error");
-    });
-
-    return () => {
-      cancelled = true;
-    };
-  }, []);
 
   useEffect(() => {
     const requestedLessonId = searchParams.get("lesson");
@@ -92,31 +62,6 @@ export function LearnBrowser() {
       setIsPlatformReferenceOpen(true);
     }
   }, [activeLesson]);
-
-  useEffect(() => {
-    if (!activeLesson || lessonHtml[activeLesson.id]) {
-      return;
-    }
-
-    if (lessonMarkdown[activeLesson.id]) {
-      setLessonHtml((current) => ({ ...current, [activeLesson.id]: renderMarkdown(lessonMarkdown[activeLesson.id]) }));
-      return;
-    }
-
-    fetch(publicAssetPath(activeLesson.file))
-      .then((response) => response.text())
-      .then((markdown) => {
-        setLessonMarkdown((current) => ({ ...current, [activeLesson.id]: markdown }));
-        setLessonHtml((current) => ({ ...current, [activeLesson.id]: renderMarkdown(markdown) }));
-      })
-      .catch((error) => {
-        const safeError = String(error).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-        setLessonHtml((current) => ({
-          ...current,
-          [activeLesson.id]: `<p>Failed to load lesson content.</p><p>${safeError}</p>`
-        }));
-      });
-  }, [activeLesson, lessonHtml, lessonMarkdown]);
 
   useEffect(() => {
     const root = lessonContentRef.current;
@@ -194,14 +139,12 @@ export function LearnBrowser() {
               />
             </label>
             <div className="learn-search-meta">
-              {searchStatus === "loading" ? "Indexing lessons..." : null}
-              {searchStatus === "error" ? "Search index could not be loaded." : null}
-              {searchStatus === "ready" && trimmedSearchQuery.length < 2 ? "Search by keyword, model name, or technical detail." : null}
-              {searchStatus === "ready" && trimmedSearchQuery.length >= 2 ? `${searchResults.length} result${searchResults.length === 1 ? "" : "s"}` : null}
+              {trimmedSearchQuery.length < 2 ? "Search by keyword, model name, or technical detail." : null}
+              {trimmedSearchQuery.length >= 2 ? `${searchResults.length} result${searchResults.length === 1 ? "" : "s"}` : null}
             </div>
             {trimmedSearchQuery.length >= 2 ? (
               <div className="learn-search-results" aria-label="Lesson search results">
-                {searchStatus === "loading" ? <p className="muted">Building the lesson search index...</p> : searchResults.length ? searchResults.map((result) => (
+                {searchResults.length ? searchResults.map((result) => (
                   <button
                     key={`${result.lessonId}-${result.headingId}`}
                     type="button"

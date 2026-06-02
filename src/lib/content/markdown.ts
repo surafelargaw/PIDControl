@@ -1,4 +1,4 @@
-import { publicAssetPath } from "@/lib/platform/assets";
+import { documentationAssetPath } from "@/lib/content/documentation-assets";
 
 function escapeHtml(value: string) {
   return String(value)
@@ -16,7 +16,7 @@ function inlineFormat(text: string) {
     if (/^(?:javascript|data|vbscript):/i.test(rawHref)) {
       return label;
     }
-    const adjustedHref = publicAssetPath(rawHref.replace(/^assets\/help\//, "/legacy/help/"));
+    const adjustedHref = documentationAssetPath(rawHref);
     return `<a href="${adjustedHref}" target="_blank" rel="noreferrer">${label}</a>`;
   });
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
@@ -102,7 +102,7 @@ function parseImageLine(trimmed: string) {
 
   const [, alt, src] = match;
   const safeAlt = escapeHtml(alt || "Illustration");
-  const adjustedSrc = escapeHtml(publicAssetPath(String(src).replace(/^assets\/help\//, "/legacy/help/")));
+  const adjustedSrc = escapeHtml(documentationAssetPath(String(src)));
 
   return `
     <figure class="lesson-figure">
