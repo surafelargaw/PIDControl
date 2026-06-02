@@ -18,6 +18,9 @@ dist/
 *.err.log
 *.out.log
 
+# Local Power Platform rollback exports
+.deployment-backups/
+
 # Local browser/test profiles
 .edge-smoke-profile/
 chrome-debug-profile/

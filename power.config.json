@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "appId": "b524354a-85cc-4ad2-9ba9-90d74ef26361",
+  "appDisplayName": "PID Trainer",
+  "region": "prod",
+  "environmentId": "3de02aa4-7e65-e0a8-9085-2ba418655107",
+  "description": "Operator-focused PID training platform with simulator labs, documentation, and field help.",
+  "buildPath": "./dist",
+  "buildEntryPoint": "index.html",
+  "localAppUrl": "http://localhost:5173/",
+  "logoPath": "Default",
+  "connectionReferences": {},
+  "databaseReferences": {}
+}

@@ -44,6 +44,24 @@ npm run test       # run simulator and content tests
 
 Use `https://solutionshub-dev.crm.dynamics.com` as the target Power Platform environment for this app. This is deployment metadata, not a frontend runtime variable.
 
+The tracked `power.config.json` binds this source tree to the existing `PID Trainer` code app in the unmanaged `DMCETools` solution. Keep the existing `appId` when publishing so current shares and launch links continue to work.
+
+```powershell
+npm run test
+npm run build
+
+$timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+New-Item -ItemType Directory -Path ".deployment-backups" -Force | Out-Null
+pac solution export --environment "https://solutionshub-dev.crm.dynamics.com" --name "DMCETools" --path ".deployment-backups\DMCETools-before-PIDTrainer-$timestamp.zip" --managed false --overwrite
+pac code push --environment "https://solutionshub-dev.crm.dynamics.com" --solutionName "DMCETools"
+```
+
+Rollback exports stay local under `.deployment-backups/`. To restore one:
+
+```powershell
+pac solution import --environment "https://solutionshub-dev.crm.dynamics.com" --path ".deployment-backups\DMCETools-before-PIDTrainer-<timestamp>.zip" --force-overwrite --publish-changes
+```
+
 ## Content
 
 Lesson markdown files live in `public/legacy/docs/sections/` and related images in `public/legacy/help/`. To add a lesson, drop a `.md` file in that folder and register it in [src/lib/content/lessons.ts](src/lib/content/lessons.ts).
