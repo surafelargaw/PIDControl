@@ -40,6 +40,10 @@ npm run lint       # TypeScript check
 npm run test       # run simulator and content tests
 ```
 
+## Power Platform Deployment
+
+Use `https://solutionshub-dev.crm.dynamics.com` as the target Power Platform environment for this app. This is deployment metadata, not a frontend runtime variable.
+
 ## Content
 
 Lesson markdown files live in `public/legacy/docs/sections/` and related images in `public/legacy/help/`. To add a lesson, drop a `.md` file in that folder and register it in [src/lib/content/lessons.ts](src/lib/content/lessons.ts).
