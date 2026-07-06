@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A leadership overview of how PID Trainer works, its available capabilities, and how it supports operators and technical training." />
+  <title>PID Trainer | Leadership Overview</title>
+  <style>
+    :root {
+      --ink: #edf7ff;
+      --muted: #9ab0c4;
+      --faint: #62798f;
+      --night: #061019;
+      --panel: rgba(11, 28, 41, 0.82);
+      --line: rgba(148, 190, 218, 0.18);
+      --cyan: #19d3ff;
+      --cyan-soft: #8be9ff;
+      --mint: #40e0b4;
+      --amber: #ffbf69;
+      --coral: #ff7a7a;
+      --violet: #a991ff;
+      --slide-pad: clamp(1.4rem, 4.5vw, 5.5rem);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-snap-type: y mandatory; }
+    body {
+      margin: 0;
+      background: var(--night);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 86% 8%, rgba(25, 211, 255, .16), transparent 28rem),
+        radial-gradient(circle at 7% 92%, rgba(64, 224, 180, .11), transparent 26rem),
+        linear-gradient(145deg, #061019 0%, #081722 55%, #050b12 100%);
+    }
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      opacity: .22;
+      background-image:
+        linear-gradient(rgba(155, 205, 231, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(155, 205, 231, .08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    a { color: inherit; }
+    button { font: inherit; }
+    .deck { width: 100%; }
+    .slide {
+      min-height: 100vh;
+      min-height: 100svh;
+      padding: var(--slide-pad);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      position: relative;
+      display: grid;
+      align-content: center;
+      isolation: isolate;
+      overflow: hidden;
+    }
+    .slide-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    .section-no {
+      position: absolute;
+      top: clamp(1.1rem, 2.7vw, 2.4rem);
+      left: var(--slide-pad);
+      font: 700 .7rem/1.2 ui-monospace, "Cascadia Code", monospace;
+      letter-spacing: .18em;
+      color: var(--faint);
+    }
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--cyan);
+      font: 700 .75rem/1.3 ui-monospace, "Cascadia Code", monospace;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 {
+      max-width: 950px;
+      margin-bottom: 1.35rem;
+      font-size: clamp(3rem, 7vw, 7.2rem);
+      line-height: .92;
+      letter-spacing: -.065em;
+      text-wrap: balance;
+    }
+    h2 {
+      max-width: 880px;
+      margin-bottom: 1.15rem;
+      font-size: clamp(2.25rem, 5vw, 5.1rem);
+      line-height: .98;
+      letter-spacing: -.05em;
+      text-wrap: balance;
+    }
+    h3 {
+      margin-bottom: .5rem;
+      font-size: clamp(1rem, 1.5vw, 1.25rem);
+      letter-spacing: -.02em;
+    }
+    .lede {
+      max-width: 780px;
+      margin-bottom: 0;
+      color: #bdd0df;
+      font-size: clamp(1.05rem, 1.8vw, 1.45rem);
+      line-height: 1.55;
+    }
+    .accent { color: var(--cyan-soft); }
+    .mint { color: var(--mint); }
+    .amber { color: var(--amber); }
+    .violet { color: var(--violet); }
+
+    .hero-grid,
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1.12fr) minmax(330px, .88fr);
+      gap: clamp(2rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .hero-mark {
+      position: relative;
+      min-height: min(58vh, 560px);
+      display: grid;
+      place-items: center;
+    }
+    .orb {
+      width: min(30vw, 360px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(25, 211, 255, .34);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle, rgba(25, 211, 255, .12), rgba(25, 211, 255, .01) 68%);
+      box-shadow: 0 0 80px rgba(25, 211, 255, .1), inset 0 0 60px rgba(25, 211, 255, .06);
+      animation: breathe 5s ease-in-out infinite;
+    }
+    .orb::before, .orb::after {
+      content: "";
+      position: absolute;
+      width: min(39vw, 470px);
+      aspect-ratio: 1;
+      border: 1px solid rgba(64, 224, 180, .13);
+      border-radius: 50%;
+    }
+    .orb::after { width: min(48vw, 580px); border-color: rgba(169, 145, 255, .1); }
+    .pid-letters { display: flex; align-items: baseline; gap: .12em; font-weight: 800; letter-spacing: -.08em; }
+    .pid-letters span { font-size: clamp(3rem, 7vw, 6.2rem); }
+    .pid-letters small { color: var(--muted); font: 600 .72rem/1.2 ui-monospace, monospace; letter-spacing: .12em; }
+    .loop-line {
+      position: absolute;
+      inset: 24% 0 auto;
+      height: 52%;
+      width: 100%;
+      overflow: visible;
+      opacity: .85;
+    }
+    .loop-line path { fill: none; stroke: var(--cyan); stroke-width: 2.2; vector-effect: non-scaling-stroke; filter: drop-shadow(0 0 5px rgba(25,211,255,.6)); }
+    .loop-line .trace { stroke-dasharray: 10 7; animation: dash 4s linear infinite; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 2rem; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .6rem;
+      min-height: 48px;
+      padding: .8rem 1.1rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: var(--ink);
+      background: rgba(255,255,255,.03);
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); border-color: rgba(25,211,255,.6); }
+    .button.primary { background: var(--cyan); color: #031018; border-color: transparent; }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: .8rem;
+      margin-top: 2.2rem;
+      max-width: 720px;
+    }
+    .stat {
+      padding: 1rem;
+      border-top: 1px solid var(--line);
+    }
+    .stat strong { display: block; font-size: clamp(1.8rem, 3.4vw, 3rem); letter-spacing: -.05em; }
+    .stat span { color: var(--muted); font-size: .85rem; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: clamp(2rem, 4vw, 3.4rem);
+    }
+    .cards.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .card {
+      position: relative;
+      min-height: 210px;
+      padding: 1.35rem;
+      border: 1px solid var(--line);
+      border-radius: 1.1rem;
+      background: linear-gradient(145deg, rgba(15, 39, 56, .88), rgba(7, 21, 31, .76));
+      box-shadow: 0 22px 60px rgba(0,0,0,.13);
+      overflow: hidden;
+    }
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: auto -25% -55% 35%;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(25,211,255,.11), transparent 68%);
+    }
+    .card p { margin-bottom: 0; color: var(--muted); line-height: 1.55; font-size: .92rem; }
+    .card-no { display: block; margin-bottom: 2.2rem; color: var(--cyan); font: 700 .72rem/1 ui-monospace, monospace; }
+    .card[data-tone="mint"] .card-no { color: var(--mint); }
+    .card[data-tone="amber"] .card-no { color: var(--amber); }
+    .card[data-tone="violet"] .card-no { color: var(--violet); }
+
+    .feature-list { display: grid; gap: .75rem; margin-top: 1.8rem; }
+    .feature {
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: .9rem;
+      align-items: start;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feature:last-child { border-bottom: 0; }
+    .feature-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      background: rgba(25,211,255,.08);
+      border: 1px solid rgba(25,211,255,.18);
+      font: 800 .75rem/1 ui-monospace, monospace;
+    }
+    .feature p { margin: .22rem 0 0; color: var(--muted); line-height: 1.45; font-size: .9rem; }
+
+    .visual-panel {
+      border: 1px solid var(--line);
+      border-radius: 1.3rem;
+      padding: clamp(1rem, 2vw, 1.5rem);
+      background: rgba(4, 15, 24, .72);
+      box-shadow: 0 30px 80px rgba(0,0,0,.26);
+    }
+    .visual-top { display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; color: var(--muted); font: 600 .68rem/1.2 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .status { color: var(--mint); }
+    .trend { width: 100%; height: auto; display: block; }
+    .trend .grid { stroke: rgba(148,190,218,.13); stroke-width: 1; }
+    .trend .sp { fill: none; stroke: #d7e5ee; stroke-width: 2; stroke-dasharray: 7 6; }
+    .trend .pv { fill: none; stroke: var(--cyan); stroke-width: 4; filter: drop-shadow(0 0 5px rgba(25,211,255,.45)); stroke-dasharray: 900; stroke-dashoffset: 900; animation: draw 4s ease-out infinite; }
+    .trend .mv { fill: none; stroke: var(--mint); stroke-width: 2.5; opacity: .8; }
+    .metric-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: .65rem; margin-top: 1rem; }
+    .metric { padding: .75rem; border-radius: .7rem; background: rgba(255,255,255,.035); border: 1px solid var(--line); }
+    .metric span { display: block; color: var(--faint); font: 650 .63rem/1.2 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .metric strong { display: block; margin-top: .3rem; font-size: 1rem; }
+
+    .plant-flow { display: grid; gap: .85rem; }
+    .plant-node {
+      display: grid;
+      grid-template-columns: 46px 1fr auto;
+      gap: .8rem;
+      align-items: center;
+      padding: .9rem;
+      border: 1px solid var(--line);
+      border-radius: .85rem;
+      background: rgba(255,255,255,.025);
+    }
+    .plant-node .node-icon { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: rgba(25,211,255,.09); color: var(--cyan); font-weight: 800; }
+    .plant-node strong { display: block; font-size: .95rem; }
+    .plant-node small { color: var(--muted); }
+    .plant-node .reading { color: var(--mint); font: 700 .85rem/1 ui-monospace, monospace; }
+    .connector { width: 1px; height: 16px; margin: -.85rem 0 -.85rem 22px; background: linear-gradient(var(--cyan), var(--mint)); }
+
+    .stability-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .8rem; margin-top: 1.3rem; }
+    .stability-card { padding: 1rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255,255,255,.025); }
+    .stability-card strong { display: block; margin-bottom: .2rem; }
+    .stability-card small { color: var(--muted); }
+    .spark { width: 100%; height: 62px; margin-top: .7rem; }
+    .spark path { fill: none; stroke-width: 3; vector-effect: non-scaling-stroke; }
+    .stable path { stroke: var(--mint); }
+    .marginal path { stroke: var(--amber); }
+    .unstable path { stroke: var(--coral); }
+
+    .comparison { margin-top: 2rem; border: 1px solid var(--line); border-radius: 1rem; overflow: hidden; }
+    .compare-row { display: grid; grid-template-columns: 1.1fr 1fr 1fr; }
+    .compare-row > div { padding: .85rem 1rem; border-bottom: 1px solid var(--line); }
+    .compare-row:last-child > div { border-bottom: 0; }
+    .compare-row > div + div { border-left: 1px solid var(--line); }
+    .compare-head { background: rgba(25,211,255,.06); color: var(--cyan-soft); font-weight: 750; }
+    .compare-row:not(.compare-head) > div:first-child { color: var(--muted); }
+
+    .journey {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: .7rem;
+      margin-top: clamp(2rem, 5vw, 4rem);
+    }
+    .journey-step { position: relative; padding: 1rem 1rem 1.2rem; border-top: 2px solid var(--line); }
+    .journey-step::before { content: ""; position: absolute; top: -7px; left: 0; width: 12px; height: 12px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 0 5px rgba(25,211,255,.1); }
+    .journey-step:nth-child(2)::before { background: var(--mint); }
+    .journey-step:nth-child(3)::before { background: var(--amber); }
+    .journey-step:nth-child(4)::before { background: var(--violet); }
+    .journey-step:nth-child(5)::before { background: var(--cyan-soft); }
+    .journey-step span { color: var(--faint); font: 700 .65rem/1 ui-monospace, monospace; }
+    .journey-step strong { display: block; margin: .85rem 0 .4rem; }
+    .journey-step p { margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+
+    .quote {
+      max-width: 1030px;
+      margin: clamp(2rem, 4vw, 3.5rem) 0 0;
+      padding: clamp(1.3rem, 3vw, 2.2rem);
+      border-left: 3px solid var(--cyan);
+      background: linear-gradient(90deg, rgba(25,211,255,.08), transparent);
+      font-size: clamp(1.2rem, 2.2vw, 2rem);
+      line-height: 1.45;
+      letter-spacing: -.025em;
+    }
+    .outcome-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .8rem; margin-top: 2.2rem; max-width: 920px; }
+    .outcome { display: flex; gap: .8rem; align-items: flex-start; padding: 1rem; border: 1px solid var(--line); border-radius: .8rem; background: rgba(255,255,255,.025); }
+    .check { color: var(--mint); font-weight: 900; }
+    .outcome span:last-child { color: #c0d0dc; line-height: 1.45; }
+
+    .closing { text-align: center; }
+    .closing h2 { margin-left: auto; margin-right: auto; max-width: 980px; }
+    .closing .lede { margin-left: auto; margin-right: auto; }
+    .closing .hero-actions { justify-content: center; }
+    .closing-mark { width: 72px; height: 72px; margin: 0 auto 1.5rem; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(25,211,255,.4); color: var(--cyan); font-weight: 850; box-shadow: 0 0 40px rgba(25,211,255,.13); }
+
+    .deck-controls {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .42rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(4, 13, 21, .82);
+      backdrop-filter: blur(15px);
+    }
+    .control-button { width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: transparent; color: var(--muted); cursor: pointer; }
+    .control-button:hover { color: var(--ink); background: rgba(255,255,255,.06); }
+    .slide-count { min-width: 46px; text-align: center; color: var(--muted); font: 700 .68rem/1 ui-monospace, monospace; }
+    .progress { position: fixed; inset: 0 0 auto; z-index: 30; height: 3px; background: rgba(255,255,255,.04); }
+    .progress span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--cyan), var(--mint)); transition: width .25s ease; }
+    .hint { position: absolute; bottom: 1.6rem; left: 50%; transform: translateX(-50%); color: var(--faint); font: 650 .65rem/1 ui-monospace, monospace; letter-spacing: .1em; text-transform: uppercase; }
+
+    @keyframes breathe { 50% { transform: scale(1.035); box-shadow: 0 0 110px rgba(25,211,255,.16), inset 0 0 70px rgba(25,211,255,.08); } }
+    @keyframes dash { to { stroke-dashoffset: -68; } }
+    @keyframes draw { 45%, 100% { stroke-dashoffset: 0; } }
+
+    @media (max-width: 900px) {
+      html { scroll-snap-type: none; }
+      .slide { min-height: auto; padding-top: 5rem; padding-bottom: 5rem; scroll-snap-align: none; }
+      .hero-grid, .two-col { grid-template-columns: 1fr; }
+      .hero-mark { min-height: 360px; }
+      .orb { width: min(68vw, 330px); }
+      .orb::before { width: min(83vw, 410px); }
+      .orb::after { width: min(96vw, 490px); }
+      .cards, .cards.three { grid-template-columns: repeat(2, 1fr); }
+      .journey { grid-template-columns: 1fr; }
+      .journey-step { border-top: 0; border-left: 2px solid var(--line); padding: .7rem 1rem 1.2rem 1.4rem; }
+      .journey-step::before { top: .8rem; left: -7px; }
+      .hint { display: none; }
+    }
+    @media (max-width: 580px) {
+      h1 { font-size: clamp(2.7rem, 15vw, 4.2rem); }
+      .cards, .cards.three, .outcome-grid, .stat-row, .stability-grid { grid-template-columns: 1fr; }
+      .card { min-height: 0; }
+      .card-no { margin-bottom: 1rem; }
+      .metric-strip { grid-template-columns: 1fr; }
+      .compare-row { grid-template-columns: .85fr 1fr 1fr; font-size: .72rem; }
+      .compare-row > div { padding: .65rem .55rem; }
+      .deck-controls { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; }
+    }
+    @media print {
+      @page { size: 13.333in 7.5in; margin: 0; }
+      html, body { background: #061019 !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      html { scroll-snap-type: none; }
+      body::before, body::after { position: absolute; }
+      .slide { width: 13.333in; height: 7.5in; min-height: 0; padding: .55in .72in; break-after: page; page-break-after: always; overflow: hidden; }
+      .slide-inner { max-width: 100%; }
+      .section-no { top: .25in; left: .72in; }
+      .deck-controls, .progress, .hint { display: none !important; }
+      .button { min-height: 0; }
+      .hero-mark { min-height: 4.7in; }
+      .card { min-height: 1.85in; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <main class="deck" id="deck">
+    <section class="slide" id="opening" data-title="Opening">
+      <span class="section-no">PID TRAINER / 01</span>
+      <div class="slide-inner hero-grid">
+        <div>
+          <p class="eyebrow">Leadership briefing / operator development</p>
+          <h1>PID Trainer.<br><span class="accent">From theory to operation.</span></h1>
+          <p class="lede">An interactive training and analysis platform that helps operators understand PID behavior, practice control decisions safely, diagnose loop performance, and document results.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#why">How the app works <span aria-hidden="true">↓</span></a>
+            <a class="button" href="./index.html#/" target="_blank" rel="noopener">Open PID Trainer <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="hero-mark" aria-label="PID feedback loop illustration">
+          <div class="orb">
+            <div class="pid-letters"><span>P</span><span class="mint">I</span><span class="violet">D</span><small>CONTROL</small></div>
+          </div>
+          <svg class="loop-line" viewBox="0 0 700 250" role="img" aria-label="Response trace settling onto a setpoint">
+            <path opacity=".25" d="M0 125H700" />
+            <path class="trace" d="M0 205 C70 205 78 34 155 38 S235 198 310 185 S390 72 460 91 S530 148 592 131 S650 121 700 125" />
+          </svg>
+        </div>
+      </div>
+      <div class="hint">Scroll or use arrow keys</div>
+    </section>
+
+    <section class="slide" id="why" data-title="How the app works">
+      <span class="section-no">HOW THE APP WORKS / 02</span>
+      <div class="slide-inner">
+        <p class="eyebrow">A repeatable operator learning cycle</p>
+        <h2>The app connects instruction, simulation, and feedback in <span class="accent">four practical steps.</span></h2>
+        <p class="lede">Operators can move from a control concept to a simulated operating decision, observe the process response, and review objective performance measures—all without modifying a production system.</p>
+        <div class="cards">
+          <article class="card">
+            <span class="card-no">01 / LEARN</span>
+            <h3>Understand the control concept</h3>
+            <p>Use searchable lessons, diagrams, field definitions, and interactive examples to understand loop signals and PID terms.</p>
+          </article>
+          <article class="card" data-tone="mint">
+            <span class="card-no">02 / CONFIGURE</span>
+            <h3>Set up the operating case</h3>
+            <p>Select a process or HVAC plant, then configure controller gains, modes, limits, filters, disturbances, and equipment effects.</p>
+          </article>
+          <article class="card" data-tone="amber">
+            <span class="card-no">03 / SIMULATE</span>
+            <h3>Observe cause and effect</h3>
+            <p>Run, pause, accelerate, or step the simulation while synchronized trends show SP, PV, output, and PID contribution changes.</p>
+          </article>
+          <article class="card" data-tone="violet">
+            <span class="card-no">04 / EVALUATE</span>
+            <h3>Review the result</h3>
+            <p>Use stability classification, overshoot, settling time, error metrics, diagnostics, scenario scores, and saved comparisons.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="lab" data-title="Core lab">
+      <span class="section-no">CORE LAB / 03</span>
+      <div class="slide-inner two-col">
+        <div>
+          <p class="eyebrow">Core feature / PID Lab</p>
+          <h2>Practice controller tuning across <span class="accent">21 representative processes.</span></h2>
+          <p class="lede">Operators can compare how the same PID settings behave on fast, slow, integrating, noisy, and dead-time-dominant processes instead of treating every loop as the same control problem.</p>
+          <div class="stat-row">
+            <div class="stat"><strong>21</strong><span>process models</span></div>
+            <div class="stat"><strong>6</strong><span>tuning studies</span></div>
+            <div class="stat"><strong>P · PI · PID</strong><span>algorithm comparison</span></div>
+          </div>
+          <div class="feature-list">
+            <div class="feature"><span class="feature-icon">ƒ(t)</span><div><h3>See the complete loop response</h3><p>Trend SP, filtered SP, PV, secondary PV, controller output, and P/I/D terms; use cursors to inspect timing and response values.</p></div></div>
+            <div class="feature"><span class="feature-icon">Δ</span><div><h3>Reproduce common field conditions</h3><p>Add noise, disturbances, dead time, measurement lag, valve deadband, stiction, backlash, nonlinear flow, and output limits.</p></div></div>
+            <div class="feature"><span class="feature-icon">K</span><div><h3>Compare established tuning methods</h3><p>Generate and test P, PI, or PID settings using six methods, including Cohen–Coon, Ziegler–Nichols, relay autotune, and IMC/Lambda.</p></div></div>
+          </div>
+        </div>
+        <div class="visual-panel">
+          <div class="visual-top"><span>Generic double lag / response</span><span class="status">● Stable</span></div>
+          <svg class="trend" viewBox="0 0 620 350" role="img" aria-label="A process variable settling toward a setpoint">
+            <path class="grid" d="M45 25V315M45 315H600M45 243H600M45 170H600M45 97H600M185 25V315M325 25V315M465 25V315M600 25V315" />
+            <path class="sp" d="M45 250H150V105H600" />
+            <path class="mv" d="M45 270H150V55H205V180H265V95H330V135H400V112H600" />
+            <path class="pv" d="M45 250 C105 250 135 250 155 248 C190 240 195 76 260 78 C318 79 318 142 373 139 C425 136 432 94 480 102 C525 109 535 108 600 105" />
+            <text x="50" y="20" fill="#62798f" font-size="13">PV / SP</text>
+            <text x="535" y="340" fill="#62798f" font-size="13">TIME</text>
+          </svg>
+          <div class="metric-strip">
+            <div class="metric"><span>Overshoot</span><strong>4.2%</strong></div>
+            <div class="metric"><span>Settling</span><strong>42.8 s</strong></div>
+            <div class="metric"><span>Output use</span><strong>Calm</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="hvac" data-title="HVAC simulation">
+      <span class="section-no">HVAC SIMULATION / 04</span>
+      <div class="slide-inner two-col">
+        <div class="visual-panel">
+          <div class="visual-top"><span>Data center cooling / live plant</span><span class="status">● Running 10×</span></div>
+          <div class="plant-flow">
+            <div class="plant-node"><span class="node-icon">OA</span><div><strong>Outdoor air &amp; psychrometrics</strong><small>Dry bulb, wet bulb, humidity limits</small></div><span class="reading">95°F</span></div>
+            <span class="connector"></span>
+            <div class="plant-node"><span class="node-icon">SAT</span><div><strong>Primary temperature loop</strong><small>Direct evap, air-cooled, or liquid-cooled</small></div><span class="reading">68.2°F</span></div>
+            <span class="connector"></span>
+            <div class="plant-node"><span class="node-icon">ΔP</span><div><strong>Pressure &amp; equipment dynamics</strong><small>Fans, pumps, dampers, valves, bypass</small></div><span class="reading">0.45″</span></div>
+            <span class="connector"></span>
+            <div class="plant-node"><span class="node-icon">RM</span><div><strong>Room cascade loop</strong><small>Load response, alarms, diagnostics</small></div><span class="reading">79.8°F</span></div>
+          </div>
+          <div class="metric-strip">
+            <div class="metric"><span>Score</span><strong>86 / 100</strong></div>
+            <div class="metric"><span>RMSE</span><strong>1.42</strong></div>
+            <div class="metric"><span>Alarms</span><strong>0 active</strong></div>
+          </div>
+        </div>
+        <div>
+          <p class="eyebrow">Applied feature / HVAC Simulator</p>
+          <h2>Practice the decisions operators make on <span class="mint">data-center cooling systems.</span></h2>
+          <p class="lede">The HVAC workspace connects PID behavior to recognizable operating conditions: supply temperature, pressure, room temperature, outdoor conditions, IT load, equipment position, alarms, and cooling constraints.</p>
+          <div class="feature-list">
+            <div class="feature"><span class="feature-icon">3×</span><div><h3>Three cooling architectures</h3><p>Direct-evaporative, air-cooled, and liquid-cooled templates expose operators to different equipment and control limitations.</p></div></div>
+            <div class="feature"><span class="feature-icon">⇄</span><div><h3>Single-loop and coordinated control</h3><p>Practice manual/auto operation, cascade, feedforward, filtering, output limits, and interaction between temperature and pressure loops.</p></div></div>
+            <div class="feature"><span class="feature-icon">!</span><div><h3>Operational faults and disturbances</h3><p>Diagnose IT-load changes, humidity limits, fouled media, jammed actuators, pressure starvation, economizer changes, and combined faults.</p></div></div>
+            <div class="feature"><span class="feature-icon">4L</span><div><h3>Progressive scenario training</h3><p>Four difficulty levels move from basic proportional control to multi-loop operation, with scoring criteria and benchmark settings.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="learning" data-title="Learning system">
+      <span class="section-no">LEARNING SYSTEM / 05</span>
+      <div class="slide-inner">
+        <p class="eyebrow">Supporting feature / Documentation and Stability Lab</p>
+        <h2>Help operators understand <span class="accent">why a loop behaves the way it does.</span></h2>
+        <p class="lede">Reference content and visual tools are connected directly to controller settings, trend interpretation, stability classification, and troubleshooting decisions.</p>
+        <div class="cards three">
+          <article class="card">
+            <span class="card-no">33 GUIDED LESSONS</span>
+            <h3>Searchable technical reference</h3>
+            <p>Thirty-three lessons cover fundamentals, controller settings, tuning methods, commissioning, troubleshooting, HVAC application, and advanced control topics.</p>
+          </article>
+          <article class="card" data-tone="mint">
+            <span class="card-no">INTERACTIVE TECHNICAL WIDGETS</span>
+            <h3>Interactive concept demonstrations</h3>
+            <p>Operators can manipulate PID terms, bias, windup, valve behavior, setpoint weighting, controller direction, and process type to see the effect.</p>
+          </article>
+          <article class="card" data-tone="amber">
+            <span class="card-no">CONTEXTUAL GUIDANCE</span>
+            <h3>Response-based guidance</h3>
+            <p>Field definitions explain each setting, while fine-tuning guidance relates observed overshoot, offset, cycling, noise, or saturation to a measured next step.</p>
+          </article>
+        </div>
+        <div class="stability-grid" aria-label="Stable, marginal, and unstable response examples">
+          <div class="stability-card"><strong class="mint">Stable</strong><small>Settles with margin</small><svg class="spark stable" viewBox="0 0 260 70"><path d="M0 58 C28 58 28 12 60 13 S90 49 120 39 S148 23 175 29 S208 31 260 30" /></svg></div>
+          <div class="stability-card"><strong class="amber">Marginal</strong><small>Controlled, but fragile</small><svg class="spark marginal" viewBox="0 0 260 70"><path d="M0 58 C25 58 25 8 55 8 S82 57 112 55 S140 13 170 15 S198 49 226 45 S245 27 260 30" /></svg></div>
+          <div class="stability-card"><strong style="color:var(--coral)">Unstable</strong><small>Growing risk and actuator work</small><svg class="spark unstable" viewBox="0 0 260 70"><path d="M0 42 C25 42 25 25 50 25 S76 48 100 48 S125 15 150 15 S177 61 203 61 S226 3 260 4" /></svg></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="translate" data-title="Field translation">
+      <span class="section-no">FIELD TRANSLATION / 06</span>
+      <div class="slide-inner two-col">
+        <div>
+          <p class="eyebrow">Field connection / Vendor PID Lab and Import Data</p>
+          <h2>Connect training to <span class="violet">installed controllers and actual trend history.</span></h2>
+          <p class="lede">Operators can compare vendor-specific PID conventions and apply the same analysis language to historical BAS or controller trend files.</p>
+          <div class="feature-list">
+            <div class="feature"><span class="feature-icon">V</span><div><h3>Translate vendor implementations</h3><p>Five profiles represent Siemens, Honeywell, Automated Logic, and Johnson Controls conventions such as gain, proportional band, interval math, filtering, adaptive behavior, and bumpless transfer.</p></div></div>
+            <div class="feature"><span class="feature-icon">⇩</span><div><h3>Import existing trend data</h3><p>CSV and XLSX files can map time, SP, PV, and controller output, with optional tuning parameters and individual P/I/D term traces.</p></div></div>
+            <div class="feature"><span class="feature-icon">✓</span><div><h3>Apply a consistent review method</h3><p>The app calculates stability, overshoot, settling time, steady-state error, IAE, oscillation, and saturation indicators from imported history.</p></div></div>
+          </div>
+        </div>
+        <div>
+          <div class="visual-panel">
+            <div class="visual-top"><span>Translation layer</span><span>Same loop / different language</span></div>
+            <div class="comparison">
+              <div class="compare-row compare-head"><div>Control idea</div><div>Profile A</div><div>Profile B</div></div>
+              <div class="compare-row"><div>Proportional action</div><div>Kp / PG</div><div>PB / throttling range</div></div>
+              <div class="compare-row"><div>Integral action</div><div>Ti / IG</div><div>Reset / interval math</div></div>
+              <div class="compare-row"><div>Execution</div><div>Sample time</div><div>Control interval</div></div>
+              <div class="compare-row"><div>Protection</div><div>Tracking</div><div>Anti-windup logic</div></div>
+            </div>
+            <div class="metric-strip">
+              <div class="metric"><span>Input</span><strong>Field trend</strong></div>
+              <div class="metric"><span>Analysis</span><strong>Common metrics</strong></div>
+              <div class="metric"><span>Outcome</span><strong>Shared language</strong></div>
+            </div>
+          </div>
+          <blockquote class="quote">For operators, the benefit is a common control vocabulary across different BAS platforms, controller labels, and trend-file formats.</blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="workflow" data-title="Practice and evidence">
+      <span class="section-no">PRACTICE &amp; EVIDENCE / 07</span>
+      <div class="slide-inner">
+        <p class="eyebrow">Training delivery and oversight</p>
+        <h2>Support individual practice while giving leadership <span class="mint">a consistent training structure.</span></h2>
+        <p class="lede">A common workflow, defined scenarios, objective scoring, and saved attempts make PID development more repeatable than informal trial-and-error training.</p>
+        <div class="journey">
+          <div class="journey-step"><span>01</span><strong>Select</strong><p>Choose a process model, HVAC template, vendor profile, imported dataset, or defined scenario.</p></div>
+          <div class="journey-step"><span>02</span><strong>Configure</strong><p>Set the controller algorithm, gains, modes, limits, filters, plant options, and disturbance conditions.</p></div>
+          <div class="journey-step"><span>03</span><strong>Execute</strong><p>Run, pause, step, accelerate, apply disturbances, and inspect the response with trend cursors.</p></div>
+          <div class="journey-step"><span>04</span><strong>Evaluate</strong><p>Review stability, overshoot, settling, error indices, oscillation, saturation, and actuator activity.</p></div>
+          <div class="journey-step"><span>05</span><strong>Document</strong><p>Save the run locally, compare attempts, and export CSV data or a PDF summary.</p></div>
+        </div>
+        <div class="cards three">
+          <article class="card"><span class="card-no">MEASURABLE ASSESSMENT</span><h3>Defined performance criteria</h3><p>Scenario scores use measures such as overshoot, settling, error, alarms, saturation, and actuator activity—not completion alone.</p></article>
+          <article class="card" data-tone="mint"><span class="card-no">LOCAL TRAINING OVERSIGHT</span><h3>Attempts and progress visibility</h3><p>Instructor and leaderboard views summarize locally stored attempts, pass rates, and comparative scenario performance.</p></article>
+          <article class="card" data-tone="violet"><span class="card-no">LOW-INFRASTRUCTURE DEPLOYMENT</span><h3>Client-side architecture</h3><p>No application backend is required. Runs and attempts remain in browser storage, and a service worker supports offline use.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide" id="outcomes" data-title="Outcomes">
+      <span class="section-no">THE VALUE / 08</span>
+      <div class="slide-inner">
+        <p class="eyebrow">Expected impact</p>
+        <h2>Benefits for operators—and for the organization <span class="accent">supporting them.</span></h2>
+        <div class="outcome-grid">
+          <div class="outcome"><span class="check">✓</span><span><strong>Operator understanding:</strong> connect PID settings to visible process and equipment behavior.</span></div>
+          <div class="outcome"><span class="check">✓</span><span><strong>Safer practice:</strong> test controller changes and fault responses without affecting production equipment.</span></div>
+          <div class="outcome"><span class="check">✓</span><span><strong>Consistent diagnosis:</strong> distinguish tuning issues from sensor, actuator, load, and equipment limitations.</span></div>
+          <div class="outcome"><span class="check">✓</span><span><strong>Faster knowledge transfer:</strong> provide one training environment for different roles, process types, and BAS conventions.</span></div>
+          <div class="outcome"><span class="check">✓</span><span><strong>Measurable development:</strong> use defined scenarios, scores, saved attempts, and performance metrics to review progress.</span></div>
+          <div class="outcome"><span class="check">✓</span><span><strong>Standardized discussion:</strong> establish common terms for stability, overshoot, settling, saturation, and oscillation.</span></div>
+        </div>
+        <blockquote class="quote">The platform supports education, comparative analysis, and pre-field practice. Production changes remain subject to site validation, operating limits, safety review, and approved change-control procedures.</blockquote>
+      </div>
+    </section>
+
+    <section class="slide closing" id="close" data-title="Close">
+      <span class="section-no">PID TRAINER / 09</span>
+      <div class="slide-inner">
+        <div class="closing-mark">PID</div>
+        <p class="eyebrow">Leadership summary</p>
+        <h2>A practical path from PID theory to <span class="accent">operator competence.</span></h2>
+        <p class="lede">PID Trainer combines instruction, general process simulation, applied HVAC scenarios, vendor comparison, trend analysis, objective assessment, and reporting in one browser-based workspace.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="./index.html#/" target="_blank" rel="noopener">Open live application <span aria-hidden="true">↗</span></a>
+          <button class="button" type="button" onclick="window.print()">Print or save as PDF</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="deck-controls" aria-label="Presentation controls">
+    <button class="control-button" type="button" id="previousSlide" aria-label="Previous slide" title="Previous slide (Left arrow)">←</button>
+    <span class="slide-count" id="slideCount">1 / 9</span>
+    <button class="control-button" type="button" id="nextSlide" aria-label="Next slide" title="Next slide (Right arrow)">→</button>
+    <button class="control-button" type="button" id="fullscreen" aria-label="Enter fullscreen" title="Fullscreen (F)">⛶</button>
+  </nav>
+
+  <script>
+    (() => {
+      const slides = [...document.querySelectorAll('.slide')];
+      const count = document.getElementById('slideCount');
+      const progress = document.getElementById('progressBar');
+      let current = 0;
+
+      const show = (index) => {
+        current = Math.max(0, Math.min(slides.length - 1, index));
+        slides[current].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      };
+
+      const update = (index) => {
+        current = index;
+        count.textContent = `${index + 1} / ${slides.length}`;
+        progress.style.width = `${((index + 1) / slides.length) * 100}%`;
+        document.title = `${slides[index].dataset.title} | PID Trainer`;
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) update(slides.indexOf(entry.target));
+        });
+      }, { threshold: 0.6 });
+      slides.forEach((slide) => observer.observe(slide));
+
+      document.getElementById('previousSlide').addEventListener('click', () => show(current - 1));
+      document.getElementById('nextSlide').addEventListener('click', () => show(current + 1));
+      document.getElementById('fullscreen').addEventListener('click', async () => {
+        if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.();
+        else await document.exitFullscreen?.();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(event.key)) { event.preventDefault(); show(current + 1); }
+        if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(event.key)) { event.preventDefault(); show(current - 1); }
+        if (event.key === 'Home') { event.preventDefault(); show(0); }
+        if (event.key === 'End') { event.preventDefault(); show(slides.length - 1); }
+        if (event.key.toLowerCase() === 'f') document.getElementById('fullscreen').click();
+      });
+      update(0);
+    })();
+  </script>
+</body>
+</html>
